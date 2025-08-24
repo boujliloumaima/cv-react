@@ -1,47 +1,62 @@
-export interface Profil {
-  nom: string;
-  titre: string;
-  age: number;
-  nationalite: string;
-  tele: string;
+export interface User {
+  name: string;
+  phone: string;
+  birthDay: string;
   email: string;
+  jobTitle: string;
+  gender: Gender;
+  languages: Lang[];
+  skills: Skill[];
+  educations: Education[];
+  experiences: Experience[];
+  yearsOfExperience?: number; //calculated automatically in the component from the experiences
 }
 
-export interface Formation {
-  institut: string;
-  diplome: string;
-  annee: number;
+export enum Gender {
+  Male = 0,
+  Female = 1,
 }
-export interface Myformations {
-  formation: Formation[];
+
+export interface Lang {
+  name: string;
+  level: LangLevel;
 }
-export interface Taches {
+
+export enum LangLevel {
+  Mother = 0,
+  Beginner = 1,
+  Intermediate = 2,
+  Fluent = 3,
+  Expert = 4,
+}
+
+export interface Education {
+  institut: Institut;
+  diploma: string;
+  modules: string[];
+}
+
+export interface Institut {
+  name: string;
   description: string;
+  startDate: Date;
+  endDate: Date;
+  city: string;
 }
-export interface Technilogies {
-  nom: string;
+
+export interface Skill {
+  name: string;
+  level: number;
+  type: SkillType;
+}
+
+export enum SkillType {
+  Technical = 0,
+  Soft = 1,
 }
 
 export interface Experience {
-  entreprise: string;
-  taches: Taches[];
-  ville: string;
-  technologies: Technilogies[];
-  dateDebut: string;
-  dateFin: string;
-  description: string;
-}
-export interface MesExperiences {
-  myExperience: Experience[];
-}
-
-export interface Langue {
-  nom: string;
-  niveau: string;
-}
-export interface Langues {
-  langues: Langue[];
-}
-export interface Qualifications {
-  nom: string[];
+  company: Institut;
+  tasks: string[];
+  tools: string[];
 }
