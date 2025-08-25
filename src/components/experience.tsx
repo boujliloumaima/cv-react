@@ -13,6 +13,12 @@ export default function ExperienceItem({ experience }: Props) {
       <InstitutItem institut={experience.company} />
       <TasksList tasks={experience.tasks} />
       <ToolsList tools={experience.tools} />
+      <p>
+        <strong>Début:</strong> {experience.startDate.toLocaleDateString()}
+      </p>
+      <p>
+        <strong>Fin:</strong> {experience.endDate.toLocaleDateString()}
+      </p>
     </div>
   );
 }

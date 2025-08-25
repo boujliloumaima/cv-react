@@ -14,12 +14,6 @@ export default function InstitutItem({ institut }: Props) {
         <p>
           <strong>Ville:</strong> {institut.city}
         </p>
-        <p>
-          <strong>Début:</strong> {institut.startDate.toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Fin:</strong> {institut.endDate.toLocaleDateString()}
-        </p>
       </div>
     </div>
   );

@@ -15,6 +15,12 @@ export default function EducationItem({ education }: Props) {
       <p>
         <strong>Modules:</strong> {education.modules.join(", ")}
       </p>
+      <p>
+          <strong>Début:</strong> {education.startDate.toLocaleDateString()}
+        </p>
+        <p>
+          <strong>Fin:</strong> {education.endDate.toLocaleDateString()}
+        </p>
     </div>
   );
 }

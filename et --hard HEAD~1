@@ -1,0 +1,23 @@
+[33mcommit 1a86008f8403c1e69023b2cb5748fc12f49bfa88[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat/user-resume-components[m[33m)[m
+Author: walidnoussir <boujlilomaima@gmail.com>
+Date:   Sun Aug 24 21:23:03 2025 +0100
+
+    feat: update langue component
+
+[33mcommit 51bfef91dfe00605016f4f8968c67106c5d3c663[m
+Author: walidnoussir <boujlilomaima@gmail.com>
+Date:   Sun Aug 24 14:51:05 2025 +0100
+
+    feat(models): update User, Lang, Skill, Education, Experience interfaces
+
+[33mcommit dcd94c9977767b9b8ce2b33e02467092076c6f0c[m[33m ([m[1;31morigin/feature/compenents[m[33m, [m[1;32mfeature/compenents[m[33m)[m
+Author: walidnoussir <boujlilomaima@gmail.com>
+Date:   Fri Aug 22 23:37:58 2025 +0100
+
+    trans typeScript
+
+[33mcommit 7db3d61ee6a264ae806792edee917cd17cd4a636[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: walidnoussir <boujlilomaima@gmail.com>
+Date:   Thu Aug 21 16:24:30 2025 +0100
+
+    modalization + implimentation
