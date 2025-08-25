@@ -7,14 +7,10 @@ interface Props {
 export default function InstitutItem({ institut }: Props) {
   return (
     <div>
-      <h2>{institut.name}</h2>
+      <h2>
+        {institut.name} - {institut.city}
+      </h2>
       <p>{institut.description}</p>
-
-      <div>
-        <p>
-          <strong>Ville:</strong> {institut.city}
-        </p>
-      </div>
     </div>
   );
 }

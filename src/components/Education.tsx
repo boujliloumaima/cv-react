@@ -9,18 +9,15 @@ export default function EducationItem({ education }: Props) {
   return (
     <div>
       <p>
-        <strong>Diploma:</strong> {education.diploma}
+        {" "}
+        {education.startDate.toLocaleDateString()}-
+        {education.endDate.toLocaleDateString()}
       </p>
+      <p>{education.diploma}</p>
       <InstitutItem institut={education.institut} />
       <p>
         <strong>Modules:</strong> {education.modules.join(", ")}
       </p>
-      <p>
-          <strong>Début:</strong> {education.startDate.toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Fin:</strong> {education.endDate.toLocaleDateString()}
-        </p>
     </div>
   );
 }

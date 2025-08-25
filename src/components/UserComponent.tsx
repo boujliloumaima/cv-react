@@ -8,7 +8,7 @@ interface Props {
   user: User;
 }
 
-export default function UserComponent({ user }: Props) {
+export default function ResumeComponent({ user }: Props) {
   // const genderName = user.gender === Gender.Male ? "Male" : "Female";
 
   return (
@@ -27,7 +27,7 @@ export default function UserComponent({ user }: Props) {
         <strong>Gender:</strong> {user.gender}
       </p>
       <p>
-        <strong>yearsOfExperience:</strong> {user.yearsOfExperience}
+        <strong> Years of experience:</strong> {user.yearsOfExperience}
       </p>
 
       <h3>Languages</h3>
