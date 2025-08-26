@@ -31,23 +31,23 @@ export default function ResumeComponent({ user }: Props) {
       </p>
 
       <h3>Languages</h3>
-      {user.languages.map((lang) => (
-        <UserLanguage lang={lang} />
+      {user.languages.map((lang, idx) => (
+        <UserLanguage key={idx} lang={lang} />
       ))}
 
       <h3>Skills</h3>
-      {user.skills.map((skill) => (
-        <SkillItem skill={skill} />
+      {user.skills.map((skill, idx) => (
+        <SkillItem key={idx} skill={skill} />
       ))}
 
       <h3>Educations</h3>
-      {user.educations.map((edu) => (
-        <EducationItem education={edu} />
+      {user.educations.map((edu, idx) => (
+        <EducationItem key={idx} education={edu} />
       ))}
 
       <h3>Experiences</h3>
-      {user.experiences.map((exp) => (
-        <ExperienceItem experience={exp} />
+      {user.experiences.map((exp, idx) => (
+        <ExperienceItem key={idx} experience={exp} />
       ))}
     </div>
   );
