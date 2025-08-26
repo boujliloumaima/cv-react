@@ -9,8 +9,7 @@ export default function EducationItem({ education }: Props) {
   return (
     <div>
       <p>
-        {" "}
-        {education.startDate.toLocaleDateString()}-
+        {education.startDate.toLocaleDateString()} -{" "}
         {education.endDate.toLocaleDateString()}
       </p>
       <p>{education.diploma}</p>

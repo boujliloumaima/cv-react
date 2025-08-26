@@ -11,7 +11,7 @@ export default function ExperienceItem({ experience }: Props) {
   return (
     <div>
       <p>
-        {experience.startDate.toLocaleDateString()}-
+        {experience.startDate.toLocaleDateString()} -{" "}
         {experience.endDate.toLocaleDateString()}
       </p>
       <InstitutItem institut={experience.company} />
