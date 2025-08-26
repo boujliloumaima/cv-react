@@ -1,7 +1,8 @@
-export interface User {
+export interface Resume {
   name: string;
   phone: string;
-  birthDay: Date;
+  nationalite: string;
+  birthday: Date;
   email: string;
   jobTitle: string;
   gender: Gender;
@@ -33,14 +34,14 @@ export enum LangLevel {
 export interface Education {
   institut: Institut;
   diploma: string;
-  modules: string[];
-  startDate: Date;
-  endDate: Date;
+  modules?: string[];
+  startdate: Date;
+  enddate: Date;
 }
 
 export interface Institut {
   name: string;
-  description: string;
+  description?: string;
   city: string;
 }
 
@@ -57,8 +58,8 @@ export enum SkillType {
 
 export interface Experience {
   company: Institut;
-  startDate: Date;
-  endDate: Date;
+  startdate: Date;
+  enddate: Date;
   tasks: string[];
   tools: string[];
 }

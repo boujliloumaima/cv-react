@@ -7,10 +7,9 @@ interface Props {
 export default function InstitutItem({ institut }: Props) {
   return (
     <div>
-      <h2>
+      <p className="institu-description">
         {institut.name} - {institut.city}
-      </h2>
-      <p>{institut.description}</p>
+      </p>
     </div>
   );
 }

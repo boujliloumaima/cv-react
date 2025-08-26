@@ -5,12 +5,9 @@ interface Props {
 export default function ToolsList({ tools }: Props) {
   return (
     <div>
-      <strong>Tools:</strong>
-      <ul>
-        {tools.map((tool, idx) => (
-          <li key={idx}>{tool}</li>
-        ))}
-      </ul>
+      <strong>Téchologies: </strong>
+
+      {tools.join(" , ")}
     </div>
   );
 }
