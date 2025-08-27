@@ -14,11 +14,24 @@
 .info ul li {
   list-style-type: none;
 }
+.yerex {
+  text-align: center;
+  color: #615050e8;
+}
 .exp {
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 20px;
   margin-top: 10px;
+}
+.lang {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+  margin-top: 10px;
+}
+.lang ul li {
+  list-style-type: none;
 }
 
 h1,
@@ -30,6 +43,14 @@ h3 {
 }
 .diplome {
   display: grid;
-  grid-template-columns: 100px 1fr 1fr;
+  grid-template-columns: 200px 1fr;
   gap: 20px;
+}
+.qualifications {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.diplome .institu-description {
+  font-size: 12px;
 }

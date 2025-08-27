@@ -7,16 +7,26 @@ interface Props {
 
 export default function EducationItem({ education }: Props) {
   return (
-    <div>
-      <p>
-        {education.startDate.toLocaleDateString()} -{" "}
-        {education.endDate.toLocaleDateString()}
-      </p>
-      <p>{education.diploma}</p>
-      <InstitutItem institut={education.institut} />
-      <p>
-        <strong>Modules:</strong> {education.modules.join(", ")}
-      </p>
+    <div className="diplome">
+      <div>
+        {" "}
+        <p>
+          {education.startdate.toLocaleDateString()} -{" "}
+          {education.enddate.toLocaleDateString()}
+        </p>
+      </div>
+      <div>
+        {" "}
+        <p>{education.diploma}</p>
+        <InstitutItem institut={education.institut} />
+        <p>
+          <p>
+            {education.modules?.length
+              ? "Modules : " + education.modules.join(", ")
+              : ""}
+          </p>
+        </p>
+      </div>
     </div>
   );
 }

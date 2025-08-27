@@ -5,7 +5,7 @@ interface Props {
 export default function TasksList({ tasks }: Props) {
   return (
     <div>
-      <strong>Tasks:</strong>
+      <strong>Taches:</strong>
       <ul>
         {tasks.map((task, idx) => (
           <li key={idx}>{task}</li>

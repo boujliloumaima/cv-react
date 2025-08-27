@@ -1,16 +1,26 @@
 import { Skill } from "../models";
-interface Props {
+
+type Props = {
   skill: Skill;
-}
+};
 
 export default function SkillItem({ skill }: Props) {
-  //const skillTypeName =skill.type === SkillType.Technical ? "Technical" : "Soft";
+  const totalStars = 5;
+  let stars = "";
+  for (let i = 0; i < totalStars; i++) {
+    if (i < skill.level) {
+      stars += "★";
+    } else {
+      stars += "☆";
+    }
+  }
 
   return (
     <div>
-      <h3>{skill.name}</h3>
-      <p>{skill.type} Skill</p>
-      <p>Level: {skill.level}</p>
+      <ul>
+        <li>{skill.name}</li>
+        {stars}
+      </ul>
     </div>
   );
 }
