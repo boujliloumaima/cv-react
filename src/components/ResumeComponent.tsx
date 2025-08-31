@@ -1,4 +1,4 @@
-import { Resume, SkillType } from "../models";
+import { Resume} from "../models";
 import SkillItem from "./skill";
 import EducationItem from "./Education";
 import ExperienceItem from "./experience";
@@ -13,10 +13,8 @@ export default function ResumeComponent({ resume }: Props) {
   const birthDate = new Date(resume.birthday);
   const today = new Date();
   const age = today.getFullYear() - birthDate.getFullYear();
-  const technicalSkills = resume.skills.filter(
-    (s) => s.type === SkillType.technical
-  );
-  const softSkills = resume.skills.filter((s) => s.type === SkillType.soft);
+  const technicalSkills = resume.skills.filter((s) => s.type === 0);
+  const softSkills = resume.skills.filter((s) => s.type === 1);
 
   return (
     <div>
