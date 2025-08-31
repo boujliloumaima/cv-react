@@ -18,13 +18,13 @@ export function calculateExperience(experiences: Experience[]) {
   return totalYears;
 }
 
-export default function ExperienceItem({ experience }: Props) {
+export default function ({ experience }: Props) {
   return (
     <div className="exp">
       <div>
         <p>
-          {experience.startdate.toLocaleDateString()} -{" "}
-          {experience.enddate.toLocaleDateString()}
+          {new Date(experience.startdate).toLocaleDateString()} -
+          {new Date(experience.enddate).toLocaleDateString()}
         </p>
       </div>
       <div>
