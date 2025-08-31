@@ -7,15 +7,15 @@ interface Props {
 export default function UserLanguage({ lang }: Props) {
   function LangLevelName(level: LangLevel) {
     switch (level) {
-      case LangLevel.mother:
+      case 0:
         return "Langue maternelle";
-      case LangLevel.beginner:
+      case 1:
         return "Débutant";
-      case LangLevel.intermediate:
+      case 2:
         return "Intermédiaire";
-      case LangLevel.fluent:
+      case 3:
         return "Courant";
-      case LangLevel.expert:
+      case 4:
         return "Expert";
       default:
         return "Niveau inconnu";
@@ -27,7 +27,7 @@ export default function UserLanguage({ lang }: Props) {
         <p>{lang.name}</p>
       </div>
       <div>
-        <p>{LangLevelName(lang.level)}</p>
+        <p>{LangLevelName(Number(lang.level))}</p>
       </div>
     </div>
   );
