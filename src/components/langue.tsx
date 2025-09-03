@@ -27,7 +27,7 @@ export default function UserLanguage({ lang }: Props) {
         <p>{lang.name}</p>
       </div>
       <div>
-        <p>{LangLevelName(lang.level)}</p>
+        <p>{LangLevelName(Number(lang.level))}</p>
       </div>
     </div>
   );

@@ -9,14 +9,12 @@ export default function EducationItem({ education }: Props) {
   return (
     <div className="diplome">
       <div>
-        {" "}
         <p>
-          {education.startdate.toLocaleDateString()} -{" "}
-          {education.enddate.toLocaleDateString()}
+          {new Date(education.startdate).toLocaleDateString()} -
+          {new Date(education.enddate).toLocaleDateString()}
         </p>
       </div>
       <div>
-        {" "}
         <p>{education.diploma}</p>
         <InstitutItem institut={education.institut} />
         <p>
