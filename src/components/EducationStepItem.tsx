@@ -24,39 +24,59 @@ export default function EducationStepItem({
 
   return (
     <div>
-      <input
-        {...register(`educations.${index}.institut.name`)}
-        placeholder="Institute Name"
-      />
-      <input
-        {...register(`educations.${index}.institut.city`)}
-        placeholder="City"
-      />
-      <input
-        {...register(`educations.${index}.diploma`)}
-        placeholder="Diploma"
-      />
-      <input type="date" {...register(`educations.${index}.startdate`)} />
-      <input type="date" {...register(`educations.${index}.enddate`)} />
-
-      <h4>Modules</h4>
-      {moduleFields.map((mod, mIndex) => (
-        <div key={mod.id}>
-          <input
-            {...register(`educations.${index}.modules.${mIndex}`)}
-            placeholder={`Module ${mIndex + 1}`}
-          />
-          <button type="button" onClick={() => remove(mIndex)}>
-            remove
-          </button>
+      <div className="form-row">
+        <div className="form-group">
+          <label>Institut name</label>
+          <input {...register(`educations.${index}.institut.name`)} />
         </div>
-      ))}
-      <button type="button" onClick={() => append("")}>
-        Add Module
+        <div className="form-group">
+          <label>Institut city</label>
+          <input {...register(`educations.${index}.institut.city`)} />
+        </div>
+      </div>
+
+      <div className="form-group">
+        <label>diploma</label>
+        <input {...register(`educations.${index}.diploma`)} />
+      </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label>Start date</label>
+          <input type="date" {...register(`educations.${index}.startdate`)} />
+        </div>
+        <div className="form-group">
+          <label>End date</label>
+          <input type="date" {...register(`educations.${index}.enddate`)} />
+        </div>
+      </div>
+
+      {moduleFields.map((mod, mIndex) => {
+        return (
+          <div key={mod.id}>
+            <div className="form-group">
+              <label>Modules</label>
+              <input {...register(`educations.${index}.modules.${mIndex}`)} />
+            </div>
+            <button
+              type="button"
+              onClick={() => remove(mIndex)}
+              className="btn remove-btn"
+            >
+              remove Module{index + 1}
+            </button>
+          </div>
+        );
+      })}
+      <button type="button" onClick={() => append("")} className="btn add-btn">
+        Add Module {index + 1}
       </button>
 
-      <button type="button" onClick={() => removeEducation(index)}>
-        Remove Education
+      <button
+        type="button"
+        onClick={() => removeEducation(index)}
+        className="btn remove-btn"
+      >
+        Remove Edu {index + 1}
       </button>
     </div>
   );

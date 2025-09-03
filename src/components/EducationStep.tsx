@@ -14,6 +14,7 @@ export default function EducationStep() {
     control,
     name: "educations",
   });
+
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<Resume> = (data) => {
@@ -22,39 +23,78 @@ export default function EducationStep() {
     );
     const updatedcurrentResume = { ...currentResume, ...data };
     localStorage.setItem("currentResume", JSON.stringify(updatedcurrentResume));
-    navigate("/languages");
+    navigate("/resume/add/languages");
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>Educations</h2>
+    <div className="container-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {educationFields.map((edu, index) => (
+          <div key={edu.id}>
+            {index === educationFields.length - 1 ? (
+              <EducationStepItem
+                control={control}
+                register={register}
+                index={index}
+                removeEducation={removeEducation}
+              />
+            ) : (
+              <div className="current-data">
+                <div>
+                  <p>
+                    <strong>Institut:</strong> {edu.institut?.name},{" "}
+                    {edu.institut?.city}
+                  </p>
+                  <p>
+                    <strong>Diploma:</strong> {edu.diploma}
+                  </p>
+                  <p>
+                    <strong>Dates:</strong>{" "}
+                    {new Date(edu.startdate).toLocaleDateString()} -{" "}
+                    {new Date(edu.enddate).toLocaleDateString()}
+                  </p>
+                  {edu.modules && edu.modules.length > 0 && (
+                    <p>
+                      {" "}
+                      <strong>Modules:</strong> {edu.modules.join(",")}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => removeEducation(index)}
+                    className="btn remove-btn"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            )}
+            <hr />
+          </div>
+        ))}
 
-      {educationFields.map((edu, index) => (
-        <EducationStepItem
-          key={edu.id}
-          control={control}
-          register={register}
-          index={index}
-          removeEducation={removeEducation}
-        />
-      ))}
+        <button
+          type="button"
+          onClick={() =>
+            addEducation({
+              institut: { name: "", city: "" },
+              diploma: "",
+              startdate: new Date(),
+              enddate: new Date(),
+              modules: [""],
+            })
+          }
+          className="btn add-btn"
+        >
+          Add Education {educationFields.length + 1}
+        </button>
 
-      <button
-        type="button"
-        onClick={() =>
-          addEducation({
-            institut: { name: "", city: "" },
-            diploma: "",
-            startdate: new Date(),
-            enddate: new Date(),
-            modules: [""],
-          })
-        }
-      >
-        Add Education
-      </button>
-
-      <button type="submit">Next</button>
-    </form>
+        <button type="submit" className="btn next-btn">
+          Next
+        </button>
+      </form>
+    </div>
   );
 }

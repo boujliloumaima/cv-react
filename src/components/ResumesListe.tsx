@@ -14,7 +14,7 @@ export default function ResumesList({ resumesList }: Props) {
 
   return (
     <div>
-      <h2>All Resumes</h2>
+      <h1>All Resumes</h1>
       {resumesList.length === 0 ? (
         <p>No resumes found.</p>
       ) : (

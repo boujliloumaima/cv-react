@@ -1,5 +1,5 @@
 import { Resume } from "./models";
-
+import "./App.css";
 import ResumesList from "./components/ResumesListe";
 import ResumeDetail from "./components/ResumeDetail";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -11,26 +11,27 @@ import LanguagesStep from "./components/LangStep";
 
 const storedResume = localStorage.getItem("resumes") ?? "[]";
 const resume: Resume[] = JSON.parse(storedResume);
-console.log(localStorage.getItem("resumes"));
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/profile" />} />
-        <Route path="/profile" element={<ProfileStep />} />
-        <Route path="/education" element={<EducationStep />} />
-        <Route path="/experience" element={<ExperienceStep />} />
-        <Route path="/skills" element={<SkillsStep />} />
-        <Route path="/languages" element={<LanguagesStep />} />
-        <Route
-          path="/resumesList"
-          element={<ResumesList resumesList={resume} />}
-        />
-        <Route
-          path="/resume/:index"
-          element={<ResumeDetail resumesList={resume} />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <div className="container-cv ">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/resume/add/profile" />} />
+          <Route path="/resume/add/profile" element={<ProfileStep />} />
+          <Route path="/resume/add/education" element={<EducationStep />} />
+          <Route path="/resume/add/experience" element={<ExperienceStep />} />
+          <Route path="/resume/add/skills" element={<SkillsStep />} />
+          <Route path="/resume/add/languages" element={<LanguagesStep />} />
+          <Route
+            path="/resumes/all"
+            element={<ResumesList resumesList={resume} />}
+          />
+          <Route
+            path="/resume/:index"
+            element={<ResumeDetail resumesList={resume} />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }

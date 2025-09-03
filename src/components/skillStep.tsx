@@ -16,48 +16,104 @@ export default function SkillStep() {
     const updatedcurrentResume = { ...currentResume, ...data };
     localStorage.setItem("currentResume", JSON.stringify(updatedcurrentResume));
     alert("Skills saved!");
-    navigate("/experience");
+    navigate("/resume/add/experience");
   };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <h2>Skills</h2>
-      {fields.map((field, index) => {
-        return (
-          <div key={field.id}>
-            <input
-              {...register(`skills.${index}.name`)}
-              placeholder="Skill Name"
-            />
-            <select
-              {...register(`skills.${index}.level`, { valueAsNumber: true })}
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-            </select>
-            <select
-              {...register(`skills.${index}.type`, { valueAsNumber: true })}
-            >
-              <option value={SkillType.technical}>Technical</option>
-              <option value={SkillType.soft}>Soft</option>
-            </select>
-            <button type="button" onClick={() => remove(index)}>
-              Remove
+    <div className="container-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {fields.map((field, index) => {
+          return (
+            <div key={field.id}>
+              {index === fields.length - 1 ? (
+                <div>
+                  <div className="form-group">
+                    <label>Skill name</label>
+                    <input {...register(`skills.${index}.name`)} />
+                  </div>
+
+                  <div className="form-group">
+                    <label>Skill level</label>
+                    <select
+                      {...register(`skills.${index}.level`, {
+                        valueAsNumber: true,
+                      })}
+                    >
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      <option value={4}>4</option>
+                      <option value={5}>5</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Skill type</label>
+                    <select
+                      {...register(`skills.${index}.type`, {
+                        valueAsNumber: true,
+                      })}
+                    >
+                      <option value={SkillType.technical}>Technical</option>
+                      <option value={SkillType.soft}>Soft</option>
+                    </select>
+                  </div>
+
+                  <div className="form-group">
+                    <button
+                      type="button"
+                      onClick={() => remove(index)}
+                      className="btn remove-btn"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="current-data">
+                  <div>
+                    <p>Skill name: {field.name}</p>
+                    <p>Skill Level: {field.level}</p>
+                    <p>
+                      Skill type:{" "}
+                      {field.type === SkillType.technical
+                        ? "technical"
+                        : "soft"}
+                    </p>
+                  </div>
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => remove(index)}
+                      className="btn remove-btn"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              )}
+              <hr />
+            </div>
+          );
+        })}
+
+        <div className="form-group">
+          <button
+            type="button"
+            onClick={() =>
+              append({ name: "", level: 1, type: SkillType.technical })
+            }
+            className="btn add-btn"
+          >
+            Add Skill {fields.length + 1}
+          </button>
+          <div className="container-btn">
+            <button type="submit" className="btn next-btn">
+              Next
             </button>
           </div>
-        );
-      })}
-      <button
-        type="button"
-        onClick={() =>
-          append({ name: "", level: 1, type: SkillType.technical })
-        }
-      >
-        Add Skill
-      </button>
-      <button type="submit">Next</button>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 }

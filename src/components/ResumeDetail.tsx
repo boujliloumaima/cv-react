@@ -14,7 +14,7 @@ export default function ResumeDetail({ resumesList }: Props) {
   return (
     <div>
       <ResumeComponent resume={resumesList[index]} />
-      <button onClick={() => navigate("/resumesList")}>Back to List</button>
+      <button onClick={() => navigate("/resumes/all")}>Back to List</button>
     </div>
   );
 }

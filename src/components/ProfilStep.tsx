@@ -19,52 +19,82 @@ export default function ProfilStep() {
         JSON.stringify(updatedcurrentResume)
       );
       alert("Profile info saved!");
-      navigate("/skills");
+      navigate("/resume/add/skills");
     } catch (error) {
       alert("Error saving resume:");
     }
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        {...register("name", { required: "name is require" })}
-        placeholder="Name"
-      />
-      {errors.name && <p className="error">{errors.name.message}</p>}
-      <input
-        {...register("phone", { required: "phone is require" })}
-        placeholder="Phone"
-      />
-      {errors.phone && <p className="error">{errors.phone.message}</p>}
-      <input
-        {...register("email", { required: "email is require" })}
-        placeholder="Email"
-      />
-      {errors.email && <p className="error">{errors.email.message}</p>}
-      <input
-        type="date"
-        {...register("birthday", { required: "birthay is require" })}
-      />
-      {errors.birthday && <p className="error">{errors.birthday.message}</p>}
-      <input
-        {...register("nationalite", { required: "nationalite is require" })}
-        placeholder="Nationality"
-      />
-      {errors.nationalite && (
-        <p className="error">{errors.nationalite.message}</p>
-      )}
-      <input
-        {...register("jobTitle", { required: "job title is require" })}
-        placeholder="Job Title"
-      />
-      {errors.jobTitle && <p className="error">{errors.jobTitle.message}</p>}
+    <div className="container-form">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-row">
+          <div className="form-group">
+            <label>Fullname</label>
+            <input {...register("name", { required: "name is require" })} />
+            {errors.name && <p className="error">{errors.name.message}</p>}
+          </div>
+          <div className="form-group">
+            <label>Phone</label>
+            <input {...register("phone", { required: "phone is require" })} />
+            {errors.phone && <p className="error">{errors.phone.message}</p>}
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              {...register("email", { required: "email is require" })}
+              type="email"
+            />
+            {errors.email && <p className="error">{errors.email.message}</p>}
+          </div>
+          <div className="form-group">
+            <label>Birthday</label>
+            <input
+              type="date"
+              {...register("birthday", { required: "birthay is require" })}
+            />
+            {errors.birthday && (
+              <p className="error">{errors.birthday.message}</p>
+            )}
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group">
+            <label>Nationality</label>
+            <input
+              {...register("nationalite", {
+                required: "nationalite is require",
+              })}
+            />
+            {errors.nationalite && (
+              <p className="error">{errors.nationalite.message}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Job title</label>
+            <input
+              {...register("jobTitle", { required: "job title is require" })}
+            />
+            {errors.jobTitle && (
+              <p className="error">{errors.jobTitle.message}</p>
+            )}
+          </div>
+        </div>
 
-      <select {...register("gender")}>
-        <option value={Gender.male}>Male</option>
-        <option value={Gender.female}>Female</option>
-      </select>
-
-      <button type="submit">Next</button>
-    </form>
+        <div className="form-group">
+          <label>Gender</label>
+          <select {...register("gender")}>
+            <option value={Gender.male}>Male</option>
+            <option value={Gender.female}>Female</option>
+          </select>
+        </div>
+        <div className="container-btn">
+          <button type="submit" className="btn next-btn">
+            Next
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

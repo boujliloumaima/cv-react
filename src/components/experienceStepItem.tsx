@@ -33,52 +33,74 @@ export default function ExperienceStepItem({
 
   return (
     <div>
-      <input
-        {...register(`experiences.${index}.company.name`)}
-        placeholder="Company Name"
-      />
-      <input
-        {...register(`experiences.${index}.company.city`)}
-        placeholder="City"
-      />
-      <textarea
-        {...register(`experiences.${index}.company.description`)}
-        placeholder="description"
-      />
-      <input {...register(`experiences.${index}.startdate`)} type="date" />
-      <input {...register(`experiences.${index}.enddate`)} type="date" />
-      <h4>Tasks</h4>
+      <div className="form-row">
+        <div className="form-group">
+          <label>Company name</label>
+          <input {...register(`experiences.${index}.company.name`)} />
+        </div>
+        <div className="form-group">
+          <label>Company city</label>
+          <input {...register(`experiences.${index}.company.city`)} />
+        </div>
+      </div>
+      <div className="form-group">
+        <label>Company description</label>
+
+        <textarea {...register(`experiences.${index}.company.description`)} />
+      </div>
+      <div className="form-row">
+        {" "}
+        <div className="form-group">
+          <label>Start date</label>
+          <input {...register(`experiences.${index}.startdate`)} type="date" />
+        </div>
+        <div className="form-group">
+          <label>End date</label>
+          <input {...register(`experiences.${index}.enddate`)} type="date" />
+        </div>
+      </div>
       {taskFields.map((task, tIndex) => (
         <div key={task.id}>
-          <input
-            {...register(`experiences.${index}.tasks.${tIndex}`)}
-            placeholder={`Task ${tIndex + 1}`}
-          />
-          <button type="button" onClick={() => removeTask(tIndex)}>
-            remove
+          <div className="form-group">
+            <label>task {tIndex + 1}</label>
+            <input {...register(`experiences.${index}.tasks.${tIndex}`)} />
+          </div>
+
+          <button
+            type="button"
+            onClick={() => removeTask(tIndex)}
+            className="btn remove-btn"
+          >
+            remove Task {tIndex + 1}
           </button>
         </div>
       ))}
-      <button type="button" onClick={() => addTask("")}>
-        Add Task
+      <button type="button" onClick={() => addTask("")} className="btn add-btn">
+        Add Task {taskFields.length + 1}
       </button>
-      <h4>Tools</h4>
       {toolFields.map((tool, tIndex) => (
         <div key={tool.id}>
-          <input
-            {...register(`experiences.${index}.tools.${tIndex}`)}
-            placeholder={`Tool ${tIndex + 1}`}
-          />
-          <button type="button" onClick={() => removeTool(tIndex)}>
-            remove
+          <div className="form-group">
+            <input {...register(`experiences.${index}.tools.${tIndex}`)} />
+          </div>
+          <button
+            type="button"
+            onClick={() => removeTool(tIndex)}
+            className="btn remove-btn"
+          >
+            remove tool {tIndex + 1}
           </button>
         </div>
       ))}
-      <button type="button" onClick={() => addTool("")}>
-        Add Tool
+      <button type="button" onClick={() => addTool("")} className="btn add-btn">
+        Add Tool {toolFields.length + 1}
       </button>
-      <button type="button" onClick={() => removeExp(index)}>
-        Remove Experience
+      <button
+        type="button"
+        onClick={() => removeExp(index)}
+        className="btn remove-btn"
+      >
+        Remove Exp {index + 1}
       </button>
     </div>
   );
