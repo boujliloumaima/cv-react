@@ -15,7 +15,6 @@ export default function SkillStep() {
     );
     const updatedcurrentResume = { ...currentResume, ...data };
     localStorage.setItem("currentResume", JSON.stringify(updatedcurrentResume));
-    alert("Skills saved!");
     navigate("/resume/add/experience");
   };
 

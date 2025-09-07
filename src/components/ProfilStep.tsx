@@ -18,10 +18,11 @@ export default function ProfilStep() {
         "currentResume",
         JSON.stringify(updatedcurrentResume)
       );
-      alert("Profile info saved!");
       navigate("/resume/add/skills");
     } catch (error) {
       alert("Error saving resume:");
+      console.error(error);
+      
     }
   };
   return (

@@ -19,10 +19,10 @@ export default function ExperienceStep() {
         "currentResume",
         JSON.stringify(updatedcurrentResume)
       );
-      alert("Profile info saved!");
       navigate("/resume/add/education");
     } catch (error) {
       alert("Error saving resume");
+      console.error(error);
     }
   };
   return (
