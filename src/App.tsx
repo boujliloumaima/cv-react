@@ -8,6 +8,7 @@ import EducationStep from "./components/EducationStep";
 import ExperienceStep from "./components/experienceStep";
 import SkillsStep from "./components/skillStep";
 import LanguagesStep from "./components/LangStep";
+import HomePage from "./pages/home/HomePage";
 
 const storedResume = localStorage.getItem("resumes") ?? "[]";
 const resume: Resume[] = JSON.parse(storedResume);
@@ -16,7 +17,7 @@ export default function App() {
     <div className="container-cv ">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to="/resume/add/profile" />} />
+          <Route path="/" element={<HomePage/>} />
           <Route path="/resume/add/profile" element={<ProfileStep />} />
           <Route path="/resume/add/education" element={<EducationStep />} />
           <Route path="/resume/add/experience" element={<ExperienceStep />} />

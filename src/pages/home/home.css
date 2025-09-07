@@ -1,0 +1,153 @@
+.home-page {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero {
+  text-align: center;
+  padding: 80px 0;
+  background: #f9f9f9;
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #666;
+}
+
+.cta-buttons {
+  margin-bottom: 40px;
+}
+
+.primary-button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.secondary-button {
+  background: #f1f1f1;
+  color: #333;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+
+.feature {
+  text-align: center;
+  padding: 20px;
+  max-width: 300px;
+}
+
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.templates {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.template-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.template-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.template-card:hover {
+  transform: translateY(-5px);
+}
+
+.template-card img {
+  width: 200px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.how-it-works {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.steps {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.step {
+  text-align: center;
+  padding: 20px;
+  max-width: 300px;
+}
+
+.step-icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid #eee;
+}
+
+.footer-links {
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  margin: 0 10px;
+  color: #666;
+  text-decoration: none;
+}
+
+.social-icons a {
+  margin: 0 10px;
+  color: #666;
+  text-decoration: none;
+}
