@@ -1,11 +1,14 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Resume, Gender } from "../models";
 import { useNavigate } from "react-router-dom";
+import { nationalities } from '../tempDB/nationalities'; // Adjust the path as needed
+import Select from 'react-select';
+
 export default function ProfilStep() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    setValue
   } = useForm<Resume>();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<Resume> = (data) => {
@@ -31,55 +34,55 @@ export default function ProfilStep() {
         <div className="form-row">
           <div className="form-group">
             <label>Fullname</label>
-            <input {...register("name", { required: "name is require" })} />
-            {errors.name && <p className="error">{errors.name.message}</p>}
+            <input {...register("name")} />
           </div>
           <div className="form-group">
             <label>Phone</label>
-            <input {...register("phone", { required: "phone is require" })} />
-            {errors.phone && <p className="error">{errors.phone.message}</p>}
+            <input {...register("phone")} />
+            
           </div>
         </div>
         <div className="form-row">
           <div className="form-group">
             <label>Email</label>
             <input
-              {...register("email", { required: "email is require" })}
+              {...register("email")}
               type="email"
             />
-            {errors.email && <p className="error">{errors.email.message}</p>}
+            
           </div>
           <div className="form-group">
             <label>Birthday</label>
             <input
               type="date"
-              {...register("birthday", { required: "birthay is require" })}
+              {...register("birthday")}
             />
-            {errors.birthday && (
-              <p className="error">{errors.birthday.message}</p>
-            )}
+          
           </div>
         </div>
         <div className="form-row">
           <div className="form-group">
             <label>Nationality</label>
-            <input
-              {...register("nationalite", {
-                required: "nationalite is require",
-              })}
+            <Select
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                }),
+              }}
+              placeholder="Select your nationality..."
+              options={nationalities.map(n => ({ value: n, label: n }))}
+              onChange={(selected) => {
+                setValue("nationalite", selected!.value);
+              }}
             />
-            {errors.nationalite && (
-              <p className="error">{errors.nationalite.message}</p>
-            )}
+            
           </div>
           <div className="form-group">
             <label>Job title</label>
             <input
-              {...register("jobTitle", { required: "job title is require" })}
+              {...register("jobTitle")}
             />
-            {errors.jobTitle && (
-              <p className="error">{errors.jobTitle.message}</p>
-            )}
+            
           </div>
         </div>
 
