@@ -1,9 +1,9 @@
 import { Resume,SkillType} from "../models";
 import SkillItem from "./skill";
 import EducationItem from "./Education";
-import ExperienceItem from "./experience";
+import ExperienceItem from "./steps/experience/experience";
 import "../App.css";
-import { calculateExperience } from "./experience";
+import { calculateExperience } from "./steps/experience/experience";
 import UserLanguage from "./langue";
 interface Props {
   resume: Resume;

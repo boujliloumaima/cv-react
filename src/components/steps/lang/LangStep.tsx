@@ -1,5 +1,5 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { Resume, LangLevel } from "../models";
+import { Resume, LangLevel } from "../../../models";
 import { useNavigate } from "react-router-dom";
 
 export default function LanguagesStep() {
@@ -51,16 +51,17 @@ export default function LanguagesStep() {
             </div>
           ) : (
             <div>
-              <div className="current-data">
+              <div className="skill-display-card">
                 <div>
-                  {field.name} - {field.level}
+                  {field.name} = {field.level}
                 </div>
                 <div>
                   <button
                     onClick={() => remove(index)}
-                    className="btn remove-btn"
+                    className="remove-skill-btn"
+                    aria-label="Remove skill"
                   >
-                    remove langue {index + 1}
+                    X
                   </button>
                 </div>
               </div>

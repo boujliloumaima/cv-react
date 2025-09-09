@@ -41,6 +41,8 @@ export default function ResumesList({ resumesList }: Props) {
           </tbody>
         </table>
       )}
+      <button onClick={() => navigate("/")}>Back Home</button>
+
     </div>
   );
 }
