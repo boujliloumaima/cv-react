@@ -5,6 +5,7 @@
     overflow: hidden;
     position: relative;
     height: 24px;
+    margin-bottom: 10px;
 }
 
 .progress-bar {

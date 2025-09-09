@@ -1,7 +1,7 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { SkillType, Resume } from "../models";
+import { SkillType, Resume } from "../../../models";
 import { useNavigate } from "react-router-dom";
-import ProgressBar from "./progress/CardWithProgress";
+import ProgressBar from "../../progress/CardWithProgress";
 export default function SkillStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
   const { fields, append, remove } = useFieldArray({

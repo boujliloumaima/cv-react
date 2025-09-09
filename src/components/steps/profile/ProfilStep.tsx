@@ -1,9 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Resume, Gender } from "../models";
+import { Resume, Gender } from "../../../models";
 import { useNavigate } from "react-router-dom";
-import { nationalities } from '../tempDB/nationalities'; // Adjust the path as needed
+import { nationalities } from '../../../tempDB/nationalities'; // Adjust the path as needed
 import Select from 'react-select';
-import ProgressBar from "./progress/CardWithProgress";
+import ProgressBar from "../../progress/CardWithProgress";
 
 export default function ProfilStep() {
   const {
@@ -36,27 +36,28 @@ export default function ProfilStep() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-row">
           <div className="form-group">
-            <label>Fullname</label>
-            <input {...register("name")} />
+            <label htmlFor="fullname">Full Name</label>
+            <input id="fullname" {...register("name")} />
           </div>
           <div className="form-group">
-            <label>Phone</label>
-            <input {...register("phone")} />
-            
+            <label htmlFor="phone">Phone</label>
+            <input id="phone" {...register("phone")} placeholder="eg: +212 666-666666"/>
           </div>
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label>Email</label>
-            <input
+            <label htmlFor="email">
+              Email Address
+            </label>
+
+            <input id="email"
               {...register("email")}
               type="email"
             />
-            
           </div>
           <div className="form-group">
-            <label>Birthday</label>
-            <input
+            <label htmlFor="birthday">Birthday</label>
+            <input id="birthday"
               type="date"
               {...register("birthday")}
             />
@@ -65,11 +66,13 @@ export default function ProfilStep() {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label>Nationality</label>
-            <Select
+            <label htmlFor="nationality">Nationality</label>
+            <Select id="nationality"
               styles={{
                 control: (provided) => ({
                   ...provided,
+                  padding: "6px",
+
                 }),
               }}
               placeholder="Select your nationality..."
@@ -81,8 +84,8 @@ export default function ProfilStep() {
             
           </div>
           <div className="form-group">
-            <label>Job title</label>
-            <input
+            <label htmlFor="jobTitle">Job title</label>
+            <input id="jobTitle"
               {...register("jobTitle")}
             />
             
@@ -90,8 +93,8 @@ export default function ProfilStep() {
         </div>
 
         <div className="form-group">
-          <label>Gender</label>
-          <select {...register("gender")}>
+          <label htmlFor="gender">Gender</label>
+          <select id="gender" {...register("gender")}>
             <option value={Gender.male}>Male</option>
             <option value={Gender.female}>Female</option>
           </select>

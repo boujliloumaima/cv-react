@@ -1,5 +1,5 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { Resume, LangLevel } from "../models";
+import { Resume, LangLevel } from "../../../models";
 import { useNavigate } from "react-router-dom";
 
 export default function LanguagesStep() {

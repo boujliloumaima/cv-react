@@ -1,8 +1,8 @@
-import EducationStepItem from "./EducationStepItem";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { Resume } from "../models";
+import { Resume } from "../../../models";
 import { useNavigate } from "react-router-dom";
-import ProgressBar from "./progress/CardWithProgress";
+import ProgressBar from "../../progress/CardWithProgress";
+import EducationStepItem from "./EducationStepItem";
 
 // Composant principal
 export default function EducationStep() {

@@ -1,5 +1,5 @@
 import { Control, UseFormRegister, useFieldArray } from "react-hook-form";
-import { Resume } from "../models";
+import { Resume } from "../../../models";
 interface Props {
   control: Control<Resume>;
   register: UseFormRegister<Resume>;
