@@ -3,6 +3,7 @@ import { Resume, Gender } from "../models";
 import { useNavigate } from "react-router-dom";
 import { nationalities } from '../tempDB/nationalities'; // Adjust the path as needed
 import Select from 'react-select';
+import ProgressBar from "./progress/CardWithProgress";
 
 export default function ProfilStep() {
   const {
@@ -30,6 +31,8 @@ export default function ProfilStep() {
   };
   return (
     <div className="container-form">
+      <ProgressBar percentage={0}></ProgressBar>
+      
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-row">
           <div className="form-group">

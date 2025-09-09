@@ -2,6 +2,7 @@ import EducationStepItem from "./EducationStepItem";
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { Resume } from "../models";
 import { useNavigate } from "react-router-dom";
+import ProgressBar from "./progress/CardWithProgress";
 
 // Composant principal
 export default function EducationStep() {
@@ -28,6 +29,8 @@ export default function EducationStep() {
 
   return (
     <div className="container-form">
+      <ProgressBar percentage={75}></ProgressBar>
+      
       <form onSubmit={handleSubmit(onSubmit)}>
         {educationFields.map((edu, index) => (
           <div key={edu.id}>

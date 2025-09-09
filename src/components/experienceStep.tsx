@@ -2,6 +2,7 @@ import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { Resume } from "../models";
 import { useNavigate } from "react-router-dom";
 import ExperienceStepItem from "./experienceStepItem";
+import ProgressBar from "./progress/CardWithProgress";
 export default function ExperienceStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
   const navigate = useNavigate();
@@ -27,6 +28,8 @@ export default function ExperienceStep() {
   };
   return (
     <div className="container-form">
+      <ProgressBar percentage={50}></ProgressBar>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((exp, index) => (
           <div key={exp.id}>

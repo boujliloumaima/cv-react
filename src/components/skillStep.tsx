@@ -1,6 +1,7 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { SkillType, Resume } from "../models";
 import { useNavigate } from "react-router-dom";
+import ProgressBar from "./progress/CardWithProgress";
 export default function SkillStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
   const { fields, append, remove } = useFieldArray({
@@ -20,6 +21,8 @@ export default function SkillStep() {
 
   return (
     <div className="container-form">
+      <ProgressBar percentage={25}></ProgressBar>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((field, index) => {
           return (

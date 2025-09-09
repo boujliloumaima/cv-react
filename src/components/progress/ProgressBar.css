@@ -1,0 +1,24 @@
+.progress-container {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    height: 24px;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #333, #333);
+    /* Elegant gold-bronze gradient */
+    transition: width 0.4s ease;
+}
+
+.progress-label {
+    position: absolute;
+    right: 8px;
+    top: 2px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+}
