@@ -234,3 +234,73 @@ tbody tr:hover {
 .remove-skill-btn:hover {
     color: #d00;
 }
+
+
+.experience-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.experience-card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.date-range {
+    font-size: 14px;
+    color: #777;
+}
+
+.remove-experience-btn {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #a33;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.remove-experience-btn:hover {
+    color: #d00;
+}
+
+.company-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #3b2f2f;
+    margin: 0;
+}
+
+.company-city {
+    font-weight: 400;
+    color: #888;
+}
+
+.company-description {
+    font-size: 14px;
+    color: #555;
+    margin: 8px 0;
+}
+
+.task-list {
+    margin: 12px 0;
+    padding-left: 20px;
+    list-style-type: disc;
+    color: #444;
+}
+
+.tools-used {
+    font-size: 14px;
+    color: #444;
+    margin-top: 8px;
+}

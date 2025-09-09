@@ -30,7 +30,14 @@ export default function EducationStep() {
   return (
     <div className="container-form">
       <ProgressBar percentage={75}></ProgressBar>
-      
+      <div className="section-header">
+        <h2 className="section-title">Add Your Education</h2>
+        <p className="section-subtitle">
+          Your academic path says a lot about your foundation. Let’s highlight
+          the places and programs that shaped your expertise.
+        </p>
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)}>
         {educationFields.map((edu, index) => (
           <div key={edu.id}>
@@ -42,7 +49,7 @@ export default function EducationStep() {
                 removeEducation={removeEducation}
               />
             ) : (
-              <div className="current-data">
+              <div className="skill-display-card">
                 <div>
                   <p>
                     <strong>Institut:</strong> {edu.institut?.name},{" "}
@@ -67,9 +74,10 @@ export default function EducationStep() {
                   <button
                     type="button"
                     onClick={() => removeEducation(index)}
-                    className="btn remove-btn"
+                    className="remove-skill-btn"
+                    aria-label="Remove skill"
                   >
-                    Remove
+                    X
                   </button>
                 </div>
               </div>

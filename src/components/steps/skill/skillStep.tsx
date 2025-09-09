@@ -25,10 +25,10 @@ export default function SkillStep() {
     <div className="container-form">
       <ProgressBar percentage={25}></ProgressBar>
       <div className="section-header">
-        <h2 className="section-title">Skills That Speak for You</h2>
+        <h2 className="section-title">Add Your Skills</h2>
         <p className="section-subtitle">
-          From personal roots to professional brilliance—this is where your
-          talents shine.
+          Highlight the strengths that define how you work. Whether technical or
+          soft, your skills tell recruiters what you're great at.
         </p>
       </div>
 
