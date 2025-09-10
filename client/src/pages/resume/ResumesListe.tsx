@@ -1,14 +1,11 @@
-import { Resume } from "../models";
+import { Resume } from "../../models";
 import { useNavigate } from "react-router-dom";
+import { getAllResumes } from "../../services/resumeService";
 
-interface Props {
-  resumesList: Resume[];
-}
-
-export default function ResumesList({ resumesList }: Props) {
+export default function ResumesList() {
   const navigate = useNavigate();
-
-  const ViewDetail = (index) => {
+  const resumesList = getAllResumes();
+  const ViewDetail = (index: string) => {
     navigate(`/resume/${index}`);
   };
 
@@ -42,7 +39,6 @@ export default function ResumesList({ resumesList }: Props) {
         </table>
       )}
       <button onClick={() => navigate("/")}>Back Home</button>
-
     </div>
   );
 }
