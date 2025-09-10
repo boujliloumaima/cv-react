@@ -4,7 +4,7 @@ import { logger } from "../config/logger.js";
 // CREATE RESUME/
 export const createResume = async (req, res) => {
   try {
-    const resume = new Resume(req.body);
+    const resume = new Resume({ ...req.body, userId: req.user.id });
     await resume.save();
     logger.info(`Resume created for userId: ${resume.userId}`);
     res.status(201).json(resume);
