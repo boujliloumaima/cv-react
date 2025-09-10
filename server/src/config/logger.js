@@ -14,7 +14,7 @@ const errorFilter = format((info) => {
 const infoFilter = format((info) => {
   return info.level !== "error" ? info : false;
 });
-const logger = createLogger({
+export const logger = createLogger({
   level: "info",
   format: combine(timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), customFormat),
   transports: [
@@ -55,9 +55,7 @@ if (process.env.NODE_ENV === "production") {
     })
   );
 }
-const requestLogger = (req, res, next) => {
+export const requestLogger = (req, res, next) => {
   logger.info(`HTTP ${req.method} ${req.url}`);
   next();
 };
-
-module.exports = { logger, requestLogger };

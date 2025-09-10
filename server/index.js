@@ -1,20 +1,17 @@
 import app from "./app.js";
-import connectDB from "./config/db.js";
-import ENV from "./config/index.js";
-
-const PORT = ENV.PORT || 8080;
-
+import connectDB from "./src/config/db.js";
+import ENV from "./src/config/index.js";
+import { logger } from "./src/config/logger.js";
 const startServer = async () => {
   try {
     await connectDB();
-    console.log("Database connected successfully!");
+    logger.info(" Database connected successfully!");
 
-    app.listen(PORT, () => {
-      console.log(`Server is running on http://localhost:${PORT}`);
+    app.listen(ENV.PORT, () => {
+      logger.info(` Server is running on http://localhost:${ENV.PORT}`);
     });
   } catch (err) {
-    console.log("Failed to start the server:", err);
+    logger.error("Failed to start the server: " + err.message);
   }
 };
-
 startServer();

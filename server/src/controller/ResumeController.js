@@ -1,7 +1,7 @@
 import Resume from "../models/Resume.js";
-import logger from "../logger.js";
+import { logger } from "../config/logger.js";
 
-// CREATE RESUME
+// CREATE RESUME/
 export const createResume = async (req, res) => {
   try {
     const resume = new Resume(req.body);
