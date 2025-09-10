@@ -1,10 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Resume, Gender } from "../../../models";
 import { useNavigate } from "react-router-dom";
 import { nationalities } from "../../../tempDB/nationalities"; // Adjust the path as needed
 import Select from "react-select";
 import ProgressBar from "../../progress/CardWithProgress";
 import "../steps.css";
+import { Gender, Resume } from "../../../models";
 
 export default function ProfilStep() {
   const { register, handleSubmit, setValue } = useForm<Resume>();

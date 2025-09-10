@@ -1,19 +1,17 @@
-import { Resume } from "../models";
 import { useParams, useNavigate } from "react-router-dom";
-import ResumeComponent from "./ResumeComponent";
-interface Props {
-  resumesList: Resume[];
-}
-export default function ResumeDetail({ resumesList }: Props) {
+import { getResume } from "../../services/resumeService";
+import ResumeComponent from "../../components/ResumeComponent";
+
+export default function ResumeDetail() {
   const { index } = useParams();
   const navigate = useNavigate();
-  const resume = resumesList[index];
+  const resume = getResume(parseInt(index!));
 
   if (!resume) return <p>Resume not found</p>;
 
   return (
     <div>
-      <ResumeComponent resume={resumesList[index]} />
+      <ResumeComponent resume={resume} />
       <button onClick={() => navigate("/resumes/all")}>Back to List</button>
     </div>
   );
