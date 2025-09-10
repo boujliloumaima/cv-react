@@ -1,7 +1,8 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
-import { Resume } from "../models";
+import { Resume } from "../../../models";
 import { useNavigate } from "react-router-dom";
 import ExperienceStepItem from "./experienceStepItem";
+import ProgressBar from "../../progress/CardWithProgress";
 export default function ExperienceStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
   const navigate = useNavigate();
@@ -19,14 +20,22 @@ export default function ExperienceStep() {
         "currentResume",
         JSON.stringify(updatedcurrentResume)
       );
-      alert("Profile info saved!");
       navigate("/resume/add/education");
     } catch (error) {
       alert("Error saving resume");
+      console.error(error);
     }
   };
   return (
     <div className="container-form">
+      <ProgressBar percentage={50}></ProgressBar>
+      <div className="section-header">
+        <h2 className="section-title">Add Your Experience</h2>
+        <p className="section-subtitle">
+          Share the roles you've held, the places you've worked, and the tools
+          you've mastered. Every detail adds depth to your story.
+        </p>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         {fields.map((exp, index) => (
           <div key={exp.id}>
@@ -41,38 +50,47 @@ export default function ExperienceStep() {
                 />
               </div>
             ) : (
-              <div className="current-data">
-                <div>
-                  <p>
-                    {new Date(exp.startdate).toLocaleDateString()} -{" "}
-                    {new Date(exp.enddate).toLocaleDateString()}
-                  </p>
-                  <p>
-                    {exp.company?.name} {exp.company?.city}
-                  </p>
-                  <p>{exp.company.description}</p>
-                  {exp.tasks &&
-                    exp.tasks.length > 0 &&
-                    exp.tasks.map((e) => {
-                      return (
-                        <ul>
-                          <li>{e}</li>
-                        </ul>
-                      );
-                    })}
-                  {exp.tools && exp.tools.length > 0 && (
-                    <p>Tools: {exp.tools.join(", ")}</p>
+              <div className="experience-card">
+                <div className="experience-details">
+                  <div className="experience-header">
+                    <span className="date-range">
+                      {new Date(exp.startdate).toLocaleDateString()} –{" "}
+                      {new Date(exp.enddate).toLocaleDateString()}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => remove(index)}
+                      className="remove-experience-btn"
+                      aria-label="Remove experience"
+                    >
+                      ✖
+                    </button>
+                  </div>
+
+                  <h4 className="company-name">
+                    {exp.company?.name}{" "}
+                    <span className="company-city">({exp.company?.city})</span>
+                  </h4>
+
+                  {exp.company?.description && (
+                    <p className="company-description">
+                      {exp.company.description}
+                    </p>
                   )}
-                  <hr />
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => remove(index)}
-                    className="btn remove-btn"
-                  >
-                    Remove
-                  </button>
+
+                  {exp.tasks && exp.tasks.length > 0 && (
+                    <ul className="task-list">
+                      {exp.tasks.map((task, i) => (
+                        <li key={i}>{task}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {exp.tools && exp.tools.length > 0 && (
+                    <p className="tools-used">
+                      <strong>Tools:</strong> {exp.tools.join(", ")}
+                    </p>
+                  )}
                 </div>
               </div>
             )}

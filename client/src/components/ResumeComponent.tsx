@@ -1,10 +1,10 @@
-import { Resume,SkillType} from "../models";
+import { Resume, SkillType } from "../models";
 import SkillItem from "./skill";
-import EducationItem from "./Education";
-import ExperienceItem from "./experience";
+import ExperienceItem from "./steps/experience/experience";
 import "../App.css";
-import { calculateExperience } from "./experience";
+import { calculateExperience } from "./steps/experience/experience";
 import UserLanguage from "./langue";
+import EducationItem from "./Education";
 interface Props {
   resume: Resume;
 }
@@ -13,7 +13,9 @@ export default function ResumeComponent({ resume }: Props) {
   const birthDate = new Date(resume.birthday);
   const today = new Date();
   const age = today.getFullYear() - birthDate.getFullYear();
-  const technicalSkills = resume.skills.filter((s) => s.type === SkillType.technical);
+  const technicalSkills = resume.skills.filter(
+    (s) => s.type === SkillType.technical
+  );
   const softSkills = resume.skills.filter((s) => s.type === SkillType.soft);
 
   return (
@@ -65,17 +67,17 @@ export default function ResumeComponent({ resume }: Props) {
       </div>
 
       <h3>Experiences</h3>
-      {resume.experiences.map((exp) => (
-        <ExperienceItem experience={exp} />
+      {resume.experiences.map((exp, i) => (
+        <ExperienceItem key={i} experience={exp} />
       ))}
 
       <h3>Educations</h3>
-      {resume.educations.map((edu) => (
-        <EducationItem education={edu} />
+      {resume.educations.map((edu, i) => (
+        <EducationItem key={i} education={edu} />
       ))}
       <h3>Languages</h3>
-      {resume.languages.map((lang) => (
-        <UserLanguage lang={lang} />
+      {resume.languages.map((lang, i) => (
+        <UserLanguage key={i} lang={lang} />
       ))}
     </div>
   );

@@ -1,7 +1,7 @@
-import { Experience } from "../models";
-import InstitutItem from "./Institut";
-import TasksList from "./TasksList";
-import ToolsList from "./ToolsList";
+import { Experience } from "../../../models";
+import InstitutItem from "../../Institut";
+import TasksList from "../../TasksList";
+import ToolsList from "../../ToolsList";
 
 interface Props {
   experience: Experience;
