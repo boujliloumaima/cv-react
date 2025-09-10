@@ -1,13 +1,8 @@
 import express from "express";
-
+import userRoutes from "./src/routes/UserRouter.js";
 const app = express();
-
-// Middleware
 app.use(express.json());
 
-// Routes
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use("/api/users", userRoutes);
 
 export default app;
