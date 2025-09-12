@@ -18,7 +18,6 @@ const verifyToken = (req, res, next) => {
         .status(403)
         .json({ message: "Invalid or expired token.", error: err.message });
     }
-    git;
     logger.info("Token verified");
     req.user = user;
     next();
