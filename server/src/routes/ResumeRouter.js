@@ -6,7 +6,7 @@ import {
   getResumesByUser,
 } from "../controller/ResumeController.js";
 const router = express.Router();
-router.get("/", getResumes);
+router.get("/", verifyToken, getResumes);
 // protect the createResume route with JWT middleware
 router.post("/", verifyToken, createResume);
 router.get("/:id", getResumesByUser);

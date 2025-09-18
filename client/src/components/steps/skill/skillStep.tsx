@@ -120,19 +120,19 @@ export default function SkillStep() {
               <p>Add your first skill to begin shaping your story.</p>
             </div>
           )}
-
-          <button
-            type="button"
-            onClick={() =>
-              append({ name: "", level: 1, type: SkillType.technical })
-            }
-            className="btn add-btn"
-          >
-            Add Skill {fields.length + 1}
-          </button>
           <div className="container-btn">
             <button type="submit" className="btn next-btn">
               Next
+            </button>
+
+            <button
+              type="button"
+              onClick={() =>
+                append({ name: "", level: 1, type: SkillType.technical })
+              }
+              className="btn add-btn"
+            >
+              Add Skill {fields.length + 1}
             </button>
           </div>
         </div>
