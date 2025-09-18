@@ -9,20 +9,38 @@ export default function LanguagesStep() {
     control,
     name: "languages",
   });
-  const onSubmit: SubmitHandler<Resume> = (data) => {
-    const currentResume = JSON.parse(
-      localStorage.getItem("currentResume") || "{}"
-    );
-    const storedResumes = localStorage.getItem("resumes");
-    const resumes: Resume[] = storedResumes ? JSON.parse(storedResumes) : [];
-    const updatedCurrentResume = { ...currentResume, ...data };
-    localStorage.setItem("currentResume", JSON.stringify(updatedCurrentResume));
-    const updatedResumes = [...resumes, updatedCurrentResume];
-    localStorage.setItem("resumes", JSON.stringify(updatedResumes));
-    localStorage.removeItem("currentResume");
-    navigate("/resumes/all");
-  };
+  const onSubmit: SubmitHandler<Resume> = async (data) => {
+    try {
+      const currentResume = JSON.parse(
+        localStorage.getItem("currentResume") || "{}"
+      );
 
+      const updatedCurrentResume = { ...currentResume, ...data };
+
+      const response = await fetch("http://localhost:8080/api/resumes", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedCurrentResume),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP : ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("tsajal" + result);
+
+      localStorage.removeItem("currentResume");
+      navigate("/resumes/all");
+    } catch (error) {
+      console.error("Erreur lors de la création du résumé :", error);
+      alert("❌ Échec de création du résumé !");
+    }
+  };
+  const LangLabels = ["Mother", "Beginner", "Intermediate", "Fluent", "Expert"];
   return (
     <div className="container-form">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +71,7 @@ export default function LanguagesStep() {
             <div>
               <div className="skill-display-card">
                 <div>
-                  {field.name} = {field.level}
+                  {field.name} : {LangLabels[field.level]}
                 </div>
                 <div>
                   <button
@@ -69,17 +87,18 @@ export default function LanguagesStep() {
             </div>
           )
         )}
-
-        <button
-          type="button"
-          onClick={() => append({ name: "", level: LangLevel.beginner })}
-          className="btn add-btn"
-        >
-          Add Language {fields.length}
-        </button>
-        <button type="submit" className="btn next-btn">
-          Next
-        </button>
+        <div className="container-btn">
+          <button type="submit" className="btn next-btn">
+            Next
+          </button>
+          <button
+            type="button"
+            onClick={() => append({ name: "", level: LangLevel.beginner })}
+            className="btn add-btn"
+          >
+            Add Language {fields.length + 1}
+          </button>
+        </div>
       </form>
     </div>
   );

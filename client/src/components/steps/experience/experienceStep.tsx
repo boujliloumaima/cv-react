@@ -96,25 +96,24 @@ export default function ExperienceStep() {
             )}
           </div>
         ))}
-
-        <button
-          type="button"
-          onClick={() =>
-            append({
-              company: { name: "", city: "" },
-              startdate: new Date(),
-              enddate: new Date(),
-              tasks: [""],
-              tools: [""],
-            })
-          }
-          className="btn add-btn"
-        >
-          Add Experience {fields.length + 1}
-        </button>
         <div className="container-btn">
           <button type="submit" className="btn next-btn">
             Next
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              append({
+                company: { name: "", city: "" },
+                startdate: new Date(),
+                enddate: new Date(),
+                tasks: [""],
+                tools: [""],
+              })
+            }
+            className="btn add-btn"
+          >
+            Add Experience {fields.length + 1}
           </button>
         </div>
       </form>

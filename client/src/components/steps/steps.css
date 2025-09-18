@@ -1,306 +1,302 @@
 * {
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .container-cv {
-    color: rgba(0, 0, 0, 0.74);
-    line-height: 1.5;
-    width: 80%;
-    margin: 40px auto;
+  color: rgba(0, 0, 0, 0.74);
+  line-height: 1.5;
+  width: 80%;
+  margin: 40px auto;
 }
 
 .info {
-    display: flex;
-    background-color: #dddddd46;
-    justify-content: center;
-    height: 120px;
+  display: flex;
+  background-color: #dddddd46;
+  justify-content: center;
+  height: 120px;
 }
 
 .info ul li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 .yerex {
-    text-align: center;
-    color: #615050e8;
+  text-align: center;
+  color: #615050e8;
 }
 
 .exp {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
-    margin-top: 10px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  margin-top: 10px;
 }
 
 .lang {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
-    margin-top: 10px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
+  margin-top: 10px;
 }
 
 .lang ul li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 h1,
 h2 {
-    color: rgb(96, 77, 138);
+  color: rgb(96, 77, 138);
 }
 
 h3 {
-    color: rgba(0, 0, 0, 0.774);
+  color: rgba(0, 0, 0, 0.774);
 }
 
 .diplome {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 20px;
 }
 
 .qualifications {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .diplome .institu-description {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .container-form {
-    width: 800px;
-    margin: 100px auto 0px;
-    padding: 50px 50px 0px;
-    background-color: #dddddd2a;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #ddd;
+  width: 800px;
+  margin: 100px auto 0px;
+  padding: 20px 50px;
+  background-color: #dddddd2a;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ddd;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 form input,
 select,
 textarea {
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 0px;
-    outline: none;
-    border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 0px;
+  outline: none;
+  border: 1px solid #ddd;
 }
 
 .btn {
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: background 0.3s ease;
-    border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  border: none;
+  color: white;
 }
 
 .add-btn {
-    background-color: #c59d5f;
-    color: white;
+  background-color: #c59d5f;
 }
 
 .next-btn {
-    background-color: #3b2f2f;
-    color: white;
+  background-color: #3b2f2f;
 }
-
-
-.remove-btn {
-    color: white;
-    background-color: rgba(243, 30, 30, 0.842);
+.container-btn {
+  display: flex;
+  justify-content: space-between;
 }
-
+.register-btn {
+  background-color: rgb(57, 57, 180);
+  margin: 20px auto;
+}
 .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
 }
 
 .form-row-3 {
-    grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 form input:focus {
-    border-color: #b19595;
+  border-color: #b19595;
 }
 
 .error {
-    color: red;
-    font-family: cursive;
+  color: red;
+  font-family: cursive;
 }
 
-
 .container-btn {
-    display: flex;
-    flex-direction: row-reverse;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    text-align: left;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 thead {
-    background-color: #2c3e50;
-    color: #fff;
+  background-color: #2c3e50;
+  color: #fff;
 }
 
 th,
 td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
 }
 
 tbody tr:hover {
-    background-color: #f5f5f5;
-    cursor: pointer;
+  background-color: #f5f5f5;
+  cursor: pointer;
 }
 
-
 .section-header {
-    text-align: center;
-    margin-bottom: 32px;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    color: #3b2f2f;
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  color: #3b2f2f;
 }
 
 .section-subtitle {
-    font-size: 16px;
-    color: #6c5e5e;
+  font-size: 16px;
+  color: #6c5e5e;
 }
 
 .input-hint {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 13px;
-    color: #888;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #888;
 }
 
-
 .skill-display-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fdfdfd;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 16px 20px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: box-shadow 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease;
 }
 
 .skill-display-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .skill-info h4 {
-    margin: 0 0 6px;
-    font-size: 18px;
-    color: #3b2f2f;
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: #3b2f2f;
 }
 
 .skill-info p {
-    margin: 4px 0;
-    font-size: 14px;
-    color: #555;
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
 }
 
 .remove-skill-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #a33;
-    cursor: pointer;
-    transition: color 0.2s ease;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #a33;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .remove-skill-btn:hover {
-    color: #d00;
+  color: #d00;
 }
 
-
 .experience-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: box-shadow 0.3s ease;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
 }
 
 .experience-card:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 .experience-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .date-range {
-    font-size: 14px;
-    color: #777;
+  font-size: 14px;
+  color: #777;
 }
 
 .remove-experience-btn {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: #a33;
-    cursor: pointer;
-    transition: color 0.2s ease;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #a33;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .remove-experience-btn:hover {
-    color: #d00;
+  color: #d00;
 }
 
 .company-name {
-    font-size: 18px;
-    font-weight: 600;
-    color: #3b2f2f;
-    margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #3b2f2f;
+  margin: 0;
 }
 
 .company-city {
-    font-weight: 400;
-    color: #888;
+  font-weight: 400;
+  color: #888;
 }
 
 .company-description {
-    font-size: 14px;
-    color: #555;
-    margin: 8px 0;
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0;
 }
 
 .task-list {
-    margin: 12px 0;
-    padding-left: 20px;
-    list-style-type: disc;
-    color: #444;
+  margin: 12px 0;
+  padding-left: 20px;
+  list-style-type: disc;
+  color: #444;
 }
 
 .tools-used {
-    font-size: 14px;
-    color: #444;
-    margin-top: 8px;
+  font-size: 14px;
+  color: #444;
+  margin-top: 8px;
 }

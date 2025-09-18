@@ -29,7 +29,7 @@ export default function EducationStep() {
 
   return (
     <div className="container-form">
-      <ProgressBar percentage={75}></ProgressBar>
+      <ProgressBar percentage={75} />
       <div className="section-header">
         <h2 className="section-title">Add Your Education</h2>
         <p className="section-subtitle">
@@ -85,26 +85,26 @@ export default function EducationStep() {
             <hr />
           </div>
         ))}
-
-        <button
-          type="button"
-          onClick={() =>
-            addEducation({
-              institut: { name: "", city: "" },
-              diploma: "",
-              startdate: new Date(),
-              enddate: new Date(),
-              modules: [""],
-            })
-          }
-          className="btn add-btn"
-        >
-          Add Education {educationFields.length + 1}
-        </button>
-
-        <button type="submit" className="btn next-btn">
-          Next
-        </button>
+        <div className="container-btn">
+          <button type="submit" className="btn next-btn">
+            Next
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              addEducation({
+                institut: { name: "", city: "" },
+                diploma: "",
+                startdate: new Date(),
+                enddate: new Date(),
+                modules: [""],
+              })
+            }
+            className="btn add-btn"
+          >
+            Add Education {educationFields.length + 1}
+          </button>
+        </div>
       </form>
     </div>
   );
