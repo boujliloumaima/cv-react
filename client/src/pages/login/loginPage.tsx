@@ -13,10 +13,11 @@ export default function LoginPage() {
     formState: { errors },
   } = useForm<LoginFormInputs>();
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-      const response = await fetch("http://localhost:8080/api/users/login", {
+      const response = await fetch(`${apiUrl}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +32,6 @@ export default function LoginPage() {
       }
       const result = await response.json();
       console.log("Login success:", result);
-      alert("Login successful!");
       navigate("/home");
     } catch (error: any) {
       console.error("Login error:", error.message);

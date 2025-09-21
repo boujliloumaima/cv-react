@@ -1,6 +1,7 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { Resume, LangLevel } from "../../../models";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function LanguagesStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
@@ -9,15 +10,16 @@ export default function LanguagesStep() {
     control,
     name: "languages",
   });
-  const onSubmit: SubmitHandler<Resume> = async (data) => {
-    try {
+  const queryClient = useQueryClient();
+  const createResumeMutation = useMutation({
+    mutationFn: async (data: Resume) => {
       const currentResume = JSON.parse(
         localStorage.getItem("currentResume") || "{}"
       );
-
       const updatedCurrentResume = { ...currentResume, ...data };
+      const apiUrl = import.meta.env.VITE_API_URL;
 
-      const response = await fetch("http://localhost:8080/api/resumes", {
+      const response = await fetch(`${apiUrl}/resumes`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -29,16 +31,20 @@ export default function LanguagesStep() {
       if (!response.ok) {
         throw new Error(`Erreur HTTP : ${response.status}`);
       }
-
-      const result = await response.json();
-      console.log("tsajal" + result);
-
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["resume"] });
       localStorage.removeItem("currentResume");
       navigate("/resumes/all");
-    } catch (error) {
-      console.error("Erreur lors de la création du résumé :", error);
+    },
+    onError: () => {
       alert("❌ Échec de création du résumé !");
-    }
+    },
+  });
+
+  const onSubmit: SubmitHandler<Resume> = (data) => {
+    createResumeMutation.mutate(data);
   };
   const LangLabels = ["Mother", "Beginner", "Intermediate", "Fluent", "Expert"];
   return (

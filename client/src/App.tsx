@@ -24,7 +24,7 @@ export default function App() {
           <Route path="/resume/add/skills" element={<SkillsStep />} />
           <Route path="/resume/add/languages" element={<LanguagesStep />} />
           <Route path="/resumes/all" element={<ResumesList />} />
-          <Route path="/resume/:index" element={<ResumeDetail />} />
+          <Route path="/resume/:id" element={<ResumeDetail />} />
           <Route path="/home" element={<HomePage />} />
         </Routes>
       </BrowserRouter>

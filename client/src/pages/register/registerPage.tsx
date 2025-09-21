@@ -12,10 +12,11 @@ interface RegisterForm {
 export default function RegisterPage() {
   const { register, handleSubmit } = useForm<RegisterForm>();
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const onSubmit: SubmitHandler<RegisterForm> = async (data) => {
     try {
-      const response = await fetch("http://localhost:8080/api/users/register", {
+      const response = await fetch(`${apiUrl}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,13 +32,11 @@ export default function RegisterPage() {
 
       const result = await response.json();
       console.log("✅ User registered:", result);
-      alert("✅ Registration successful!");
-      navigate("/login");
+      navigate("/home");
     } catch (error: any) {
-      alert(`❌ Registration failed: ${error.message}`);
+      console.log(` Registration failed: ${error.message}`);
     }
   };
-
   return (
     <div className="container">
       <form onSubmit={handleSubmit(onSubmit)}>

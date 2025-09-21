@@ -7,21 +7,19 @@ const institutSchema = new mongoose.Schema({
 });
 
 const languageSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: String,
   level: {
     type: Number,
     enum: [0, 1, 2, 3, 4],
-    required: true,
   },
 });
 
 const skillSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  level: { type: Number, required: true },
+  name: String,
+  level: Number,
   type: {
     type: Number,
     enum: [0, 1],
-    required: true,
   },
 });
 
@@ -48,16 +46,15 @@ const resumeSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    name: { type: String, required: true },
-    phone: { type: String, required: true },
-    nationalite: { type: String, required: true },
-    birthday: { type: Date, required: true },
-    email: { type: String, required: true },
-    jobTitle: { type: String, required: true },
+    name: String,
+    phone: String,
+    nationalite: String,
+    birthday: Date,
+    email: String,
+    jobTitle: String,
     gender: {
       type: Number,
       enum: [0, 1],
-      required: true,
     },
     languages: [languageSchema],
     skills: [skillSchema],
