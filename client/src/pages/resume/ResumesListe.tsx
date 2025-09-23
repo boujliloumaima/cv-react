@@ -7,7 +7,7 @@ export default function ResumesList() {
 
   const getAllResumes = async () => {
     try {
-      const res = await fetch("http://localhost:8080/api/resumes/resumes", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/resumes/resumes`, {
         credentials: "include",
       });
 

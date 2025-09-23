@@ -65,7 +65,7 @@ export default function RegisterPage() {
         </div>
         <div className="form-group">
           <button type="submit" className="btn register-btn">
-            sign up
+            Sign up
           </button>
         </div>
         <div className="register">
