@@ -4,7 +4,7 @@ import { logger } from "../config/logger.js";
 // CREATE RESUME/
 export const createResume = async (req, res) => {
   try {
-    const resume = new Resume(req.body);
+    const resume = new Resume({ ...req.body, userId: req.user.id });
     await resume.save();
     logger.info(`Resume created for userId: ${resume.userId}`);
     res.status(201).json(resume);
@@ -25,10 +25,29 @@ export const getResumes = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+export const getResumeById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const resume = await Resume.findById(id);
+
+    if (!resume) {
+      logger.warn(`Resume not found: id=${id}`);
+      return res.status(404).json({ message: "Resume not found" });
+    }
+
+    logger.info(`Fetched resume: id=${id}, name=${resume.name}`);
+    res.status(200).json(resume);
+  } catch (error) {
+    logger.error(
+      `Failed to fetch resume id=${req.params.id}: ${error.message}`
+    );
+    res.status(500).json({ message: "Server error" });
+  }
+};
 // GET RESUMES BY USER ID
 export const getResumesByUser = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user.id;
     const resumes = await Resume.find({ userId }).populate(
       "userId",
       "name email"

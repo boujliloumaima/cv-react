@@ -1,13 +1,30 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { getResume } from "../../services/resumeService";
+import { useQuery } from "@tanstack/react-query";
 import ResumeComponent from "../../components/ResumeComponent";
 
 export default function ResumeDetail() {
-  const { index } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const resume = getResume(parseInt(index!));
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const fetchResumeById = async () => {
+    const res = await fetch(`${apiUrl}/resumes/${id}`, {
+      credentials: "include",
+    });
+    if (!res.ok) throw new Error("Failed to fetch resume");
+    return res.json();
+  };
 
-  if (!resume) return <p>Resume not found</p>;
+  const {
+    data: resume,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["resume", id],
+    queryFn: fetchResumeById,
+  });
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError || !resume) return <p>Resume not found</p>;
 
   return (
     <div>

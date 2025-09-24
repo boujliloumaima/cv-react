@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import './ProgressBar.css';
+import { useEffect, useState } from "react";
+import "./ProgressBar.css";
 
 const ProgressBar = ({ percentage }) => {
   const [animatedWidth, setAnimatedWidth] = useState(0);

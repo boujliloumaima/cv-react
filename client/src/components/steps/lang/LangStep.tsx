@@ -1,6 +1,7 @@
 import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { Resume, LangLevel } from "../../../models";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function LanguagesStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
@@ -9,20 +10,43 @@ export default function LanguagesStep() {
     control,
     name: "languages",
   });
-  const onSubmit: SubmitHandler<Resume> = (data) => {
-    const currentResume = JSON.parse(
-      localStorage.getItem("currentResume") || "{}"
-    );
-    const storedResumes = localStorage.getItem("resumes");
-    const resumes: Resume[] = storedResumes ? JSON.parse(storedResumes) : [];
-    const updatedCurrentResume = { ...currentResume, ...data };
-    localStorage.setItem("currentResume", JSON.stringify(updatedCurrentResume));
-    const updatedResumes = [...resumes, updatedCurrentResume];
-    localStorage.setItem("resumes", JSON.stringify(updatedResumes));
-    localStorage.removeItem("currentResume");
-    navigate("/resumes/all");
-  };
+  const queryClient = useQueryClient();
+  const createResumeMutation = useMutation({
+    mutationFn: async (data: Resume) => {
+      const currentResume = JSON.parse(
+        localStorage.getItem("currentResume") || "{}"
+      );
+      const updatedCurrentResume = { ...currentResume, ...data };
+      const apiUrl = import.meta.env.VITE_API_URL;
 
+      const response = await fetch(`${apiUrl}/resumes`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedCurrentResume),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP : ${response.status}`);
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["resume"] });
+      localStorage.removeItem("currentResume");
+      navigate("/resumes/all");
+    },
+    onError: () => {
+      alert("❌ Échec de création du résumé !");
+    },
+  });
+
+  const onSubmit: SubmitHandler<Resume> = (data) => {
+    createResumeMutation.mutate(data);
+  };
+  const LangLabels = ["Mother", "Beginner", "Intermediate", "Fluent", "Expert"];
   return (
     <div className="container-form">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +77,7 @@ export default function LanguagesStep() {
             <div>
               <div className="skill-display-card">
                 <div>
-                  {field.name} = {field.level}
+                  {field.name} : {LangLabels[field.level]}
                 </div>
                 <div>
                   <button
@@ -69,17 +93,18 @@ export default function LanguagesStep() {
             </div>
           )
         )}
-
-        <button
-          type="button"
-          onClick={() => append({ name: "", level: LangLevel.beginner })}
-          className="btn add-btn"
-        >
-          Add Language {fields.length}
-        </button>
-        <button type="submit" className="btn next-btn">
-          Next
-        </button>
+        <div className="container-btn">
+          <button type="submit" className="btn next-btn">
+            Next
+          </button>
+          <button
+            type="button"
+            onClick={() => append({ name: "", level: LangLevel.beginner })}
+            className="btn add-btn"
+          >
+            Add Language {fields.length + 1}
+          </button>
+        </div>
       </form>
     </div>
   );
