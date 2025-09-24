@@ -1,19 +1,18 @@
 import { Resume } from "../../../models";
 import { Control, UseFormRegister, Controller } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
+import MuiTagInput from "../../tag/MuiTagInput";
 
 interface Props {
   control: Control<Resume>;
   register: UseFormRegister<Resume>;
   index: number;
-  removeEducation: (index: number) => void;
 }
 
 export default function EducationStepItem({
   control,
   register,
   index,
-  removeEducation,
 }: Props) {
   return (
     <div className="education-card">
@@ -73,21 +72,7 @@ export default function EducationStepItem({
 
       <div className="form-group">
         <label>Modules</label>
-        <Controller
-          control={control}
-          name={`educations.${index}.modules`}
-          render={({ field }) => (
-            <CreatableSelect
-              isMulti
-              placeholder="Add modules and press Enter..."
-              onChange={(val) => field.onChange(val.map((v) => v.value))}
-              value={
-                field.value?.map((v: string) => ({ label: v, value: v })) || []
-              }
-              options={[]}
-            />
-          )}
-        />
+        <MuiTagInput control={control} placeholder={"Add modules and press Enter..."}  name={`educations.${index}.modules`}></MuiTagInput>
         <small className="input-hint">
           Highlight the subjects that shaped your expertise. Press Enter to add
           each one.

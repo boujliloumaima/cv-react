@@ -46,7 +46,6 @@ export default function ExperienceStep() {
                   control={control}
                   register={register}
                   index={index}
-                  removeExp={remove}
                 />
               </div>
             ) : (
@@ -107,8 +106,8 @@ export default function ExperienceStep() {
                 company: { name: "", city: "" },
                 startdate: new Date(),
                 enddate: new Date(),
-                tasks: [""],
-                tools: [""],
+                tasks: [],
+                tools: [],
               })
             }
             className="btn add-btn"

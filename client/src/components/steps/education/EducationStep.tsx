@@ -46,7 +46,6 @@ export default function EducationStep() {
                 control={control}
                 register={register}
                 index={index}
-                removeEducation={removeEducation}
               />
             ) : (
               <div className="skill-display-card">
@@ -97,7 +96,7 @@ export default function EducationStep() {
                 diploma: "",
                 startdate: new Date(),
                 enddate: new Date(),
-                modules: [""],
+                modules: [],
               })
             }
             className="btn add-btn"

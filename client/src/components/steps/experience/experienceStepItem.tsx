@@ -1,19 +1,18 @@
-import { Control, UseFormRegister, Controller } from "react-hook-form";
+import { Control, UseFormRegister } from "react-hook-form";
 import { Resume } from "../../../models";
-import CreatableSelect from "react-select/creatable";
+import MuiTagInput from "../../tag/MuiTagInput";
+
 
 interface Props {
   control: Control<Resume>;
   register: UseFormRegister<Resume>;
   index: number;
-  removeExp: (index: number) => void;
 }
 
 export default function ExperienceStepItem({
   control,
   register,
   index,
-  removeExp,
 }: Props) {
   return (
     <div className="experience-card">
@@ -22,7 +21,7 @@ export default function ExperienceStepItem({
           <label>Company name</label>
           <input
             {...register(`experiences.${index}.company.name`)}
-            placeholder="e.g. Sure Royal"
+            placeholder="e.g. Microsoft"
           />
           <small className="input-hint">
             Enter the name of the organization where you worked.
@@ -41,7 +40,7 @@ export default function ExperienceStepItem({
       </div>
 
       <div className="form-group">
-        <label>Company description</label>
+        <label>Description</label>
         <textarea
           {...register(`experiences.${index}.company.description`)}
           placeholder="Briefly describe the company or your role there."
@@ -70,21 +69,8 @@ export default function ExperienceStepItem({
 
       <div className="form-group">
         <label>Key Tasks</label>
-        <Controller
-          control={control}
-          name={`experiences.${index}.tasks`}
-          render={({ field }) => (
-            <CreatableSelect
-              isMulti
-              placeholder="Add tasks and press Enter..."
-              onChange={(val) => field.onChange(val.map((v) => v.value))}
-              value={
-                field.value?.map((v: string) => ({ label: v, value: v })) || []
-              }
-              options={[]}
-            />
-          )}
-        />
+        <MuiTagInput control={control} placeholder={"Add tasks and press Enter..."}  name={`experiences.${index}.tasks`}></MuiTagInput>
+
         <small className="input-hint">
           List your main responsibilities or achievements. Press Enter (or tab)
           to add each one.
@@ -93,21 +79,7 @@ export default function ExperienceStepItem({
 
       <div className="form-group">
         <label>Tools Used</label>
-        <Controller
-          control={control}
-          name={`experiences.${index}.tools`}
-          render={({ field }) => (
-            <CreatableSelect
-              isMulti
-              placeholder="Add tools and press Enter..."
-              onChange={(val) => field.onChange(val.map((v) => v.value))}
-              value={
-                field.value?.map((v: string) => ({ label: v, value: v })) || []
-              }
-              options={[]}
-            />
-          )}
-        />
+        <MuiTagInput control={control} placeholder={"Add tools and press Enter..."} name={`experiences.${index}.tools`}></MuiTagInput>
         <small className="input-hint">
           Mention platforms, software, or techniques you used. Press Enter (or
           tab) to add each one.
