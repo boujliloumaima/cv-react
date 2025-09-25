@@ -1,13 +1,14 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { nationalities } from "../../../tempDB/nationalities"; // Adjust the path as needed
 import Select from "react-select";
 import ProgressBar from "../../progress/CardWithProgress";
 import "../steps.css";
 import { Gender, Resume } from "../../../models";
+import { Autocomplete, TextField } from "@mui/material";
 
 export default function ProfilStep() {
-  const { register, handleSubmit, setValue } = useForm<Resume>();
+  const {register, handleSubmit,  control} = useForm<Resume>();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<Resume> = (data) => {
     try {
@@ -71,21 +72,30 @@ export default function ProfilStep() {
         </div>
         <div className="form-row">
           <div className="form-group">
-            <label htmlFor="nationality">Nationality</label>
-            <Select
-              id="nationality"
-              styles={{
-                control: (provided) => ({
-                  ...provided,
-                  padding: "6px",
-                }),
-              }}
-              placeholder="Select your nationality..."
-              options={nationalities.map((n) => ({ value: n, label: n }))}
-              onChange={(selected) => {
-                setValue("nationalite", selected!.value);
-              }}
+            <label htmlFor="nationalite">Nationality</label>
+            <Controller
+              name="nationalite"
+              control={control}
+              render={({ field: { onChange, value } }) => {
+                const selectedOption = value
+                ? { value, label: value }
+                : null;
+                return (
+                <Autocomplete
+                  id="nationalite"
+                  disablePortal
+                  options={nationalities.map((n) => ({ value: n, label: n }))}
+                  value={selectedOption}
+                  onChange={(event, newValue) => {
+                    onChange(newValue ? newValue.value : '');
+                  }}
+                  renderInput={(params) => (
+                    <TextField {...params} />
+                  )}
+                />
+              )}}
             />
+            
             <small className="input-hint">
               This helps recruiters understand your eligibility for certain
               roles.

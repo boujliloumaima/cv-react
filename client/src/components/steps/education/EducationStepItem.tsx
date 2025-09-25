@@ -1,6 +1,5 @@
 import { Resume } from "../../../models";
-import { Control, UseFormRegister, Controller } from "react-hook-form";
-import CreatableSelect from "react-select/creatable";
+import { Control, UseFormRegister } from "react-hook-form";
 import MuiTagInput from "../../tag/MuiTagInput";
 
 interface Props {
