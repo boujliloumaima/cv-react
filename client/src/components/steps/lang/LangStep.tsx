@@ -1,26 +1,36 @@
-import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  useFieldArray,
+  SubmitHandler,
+  Controller,
+} from "react-hook-form";
 import { Resume, LangLevel } from "../../../models";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Box,
-  TextField,
-  MenuItem,
   Button,
   Card,
-  CardContent,
-  CardActions,
   Divider,
-  Typography,
-  IconButton,
+  Title,
+  Text,
+  Group,
   Stack,
-} from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+  TextInput,
+  Select,
+  ActionIcon,
+} from "@mantine/core";
+import { IconPlus, IconMinus } from "@tabler/icons-react";
+import { useEffect } from "react";
+import { getCurrentResume } from "../../../services/resumeService";
+import UserLanguage from "../../langue";
 
 export default function LanguagesStep() {
-  const { register, handleSubmit, control } = useForm<Resume>();
+  const { register, handleSubmit, control, reset } = useForm<Resume>();
   const navigate = useNavigate();
+  useEffect(() => {
+    reset(getCurrentResume());
+  }, [reset]);
   const { fields, append, remove } = useFieldArray({
     control,
     name: "languages",
@@ -61,84 +71,81 @@ export default function LanguagesStep() {
   const onSubmit: SubmitHandler<Resume> = (data) => {
     createResumeMutation.mutate(data);
   };
-  const LangLabels = ["Mother", "Beginner", "Intermediate", "Fluent", "Expert"];
   return (
-    <Card sx={{ maxWidth: 600, margin: "auto", mt: 4, p: 3, boxShadow: 3 }}>
-      <CardContent>
-        <Typography variant="h5" align="center" gutterBottom>
-          Language Skills
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+    <Card shadow="md" radius="md" p="xl" maw={600} mx="auto" mt="xl">
+      <Title order={3} ta="center" mb="md">
+        Language Skills
+      </Title>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+        <Stack gap="md">
           {fields.map((field, index) => (
-            <Box key={field.id} mb={2}>
+            <Box key={field.id}>
               {index === fields.length - 1 ? (
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <TextField
+                <Group grow align="flex-end">
+                  <TextInput
                     label="Language"
                     placeholder="e.g., English, French"
-                    fullWidth
                     {...register(`languages.${index}.name`)}
                   />
-                  <TextField
-                    select
-                    label="Proficiency"
-                    defaultValue={LangLevel.beginner}
-                    fullWidth
-                    {...register(`languages.${index}.level`)}
-                  >
-                    {Object.entries(LangLevel)
-                      .filter(([key, value]) => typeof value === "number")
-                      .map(([key, value]) => (
-                        <MenuItem key={value} value={value}>
-                          {LangLabels[value]}
-                        </MenuItem>
-                      ))}
-                  </TextField>
-                </Stack>
+                  <Controller
+                    control={control}
+                    name={`languages.${index}.level`}
+                    defaultValue={LangLevel.BEGINNER}
+                    render={({ field }) => (
+                      <Select
+                        label="Proficiency"
+                        placeholder="Select level"
+                        data={Object.entries(LangLevel).map(([key, value]) => ({
+                          value: value,
+                          label:
+                            key.charAt(0).toUpperCase() +
+                            key.slice(1).toLowerCase(),
+                        }))}
+                        value={field.value?.toString()}
+                        onChange={field.onChange}
+                        onBlur={field.onBlur}
+                        ref={field.ref}
+                      />
+                    )}
+                  />
+                </Group>
               ) : (
-                <Card variant="outlined" sx={{ p: 2, mb: 1 }}>
-                  <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                  >
-                    <Typography>
-                      {field.name} : {LangLabels[field.level]}
-                    </Typography>
-                    <IconButton
+                <Card withBorder p="sm" mb="xs">
+                  <Group justify="space-between">
+                    <Text>
+                      {field.name} :{" "}
+                      {field.level.charAt(0).toUpperCase() +
+                        field.level.slice(1).toLowerCase()}
+                    </Text>
+                    <ActionIcon
+                      color="red"
+                      variant="light"
                       onClick={() => remove(index)}
-                      color="error"
                       aria-label="Remove language"
                     >
-                      <RemoveCircleOutlineIcon />
-                    </IconButton>
-                  </Stack>
+                      <IconMinus size={20} />
+                    </ActionIcon>
+                  </Group>
                 </Card>
               )}
-              {index < fields.length - 1 && <Divider sx={{ my: 1 }} />}
+              {index < fields.length - 1 && <Divider my="xs" />}
             </Box>
           ))}
-          <CardActions sx={{ justifyContent: "space-between", mt: 2 }}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="large"
-            >
-              Next
-            </Button>
-            <Button
-              type="button"
-              variant="outlined"
-              color="primary"
-              startIcon={<AddCircleOutlineIcon />}
-              onClick={() => append({ name: "", level: LangLevel.beginner })}
-            >
-              Add Language
-            </Button>
-          </CardActions>
-        </Box>
-      </CardContent>
+        </Stack>
+        <Group justify="space-between" mt="lg">
+          <Button type="submit" size="md">
+            Next
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            leftSection={<IconPlus size={18} />}
+            onClick={() => append({ name: "", level: LangLevel.BEGINNER })}
+          >
+            Add Language
+          </Button>
+        </Group>
+      </Box>
     </Card>
   );
 }

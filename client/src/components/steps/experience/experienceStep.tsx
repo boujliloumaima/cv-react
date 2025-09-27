@@ -6,32 +6,38 @@ import ProgressBar from "../../progress/CardWithProgress";
 import {
   Box,
   Button,
-  Typography,
   Card,
-  CardContent,
-  CardHeader,
   Divider,
-  IconButton,
+  Group,
   Stack,
   Paper,
-  List,
-  ListItem,
-  ListItemText,
-  Chip,
-} from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
-import BuildOutlinedIcon from "@mui/icons-material/BuildOutlined";
+  Text,
+  Title,
+  Badge,
+} from "@mantine/core";
+import {
+  IconPlus,
+  IconMinus,
+  IconBuilding,
+  IconMapPin,
+  IconTools,
+} from "@tabler/icons-react";
+
+import { useEffect } from "react";
+import { getCurrentResume } from "../../../services/resumeService";
 
 export default function ExperienceStep() {
-  const { register, handleSubmit, control } = useForm<Resume>();
+  const { register, handleSubmit, control, reset } = useForm<Resume>();
   const navigate = useNavigate();
-  const { fields, append, remove } = useFieldArray<Resume, "experiences">({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "experiences",
   });
+
+  useEffect(() => {
+    reset(getCurrentResume());
+  }, [reset]);
+
   const onSubmit: SubmitHandler<Resume> = (data) => {
     try {
       const currentResume = JSON.parse(
@@ -49,142 +55,127 @@ export default function ExperienceStep() {
     }
   };
   return (
-    <Card sx={{ maxWidth: 800, margin: "auto", mt: 4, p: 3, boxShadow: 3 }}>
-      <ProgressBar percentage={50}></ProgressBar>
-
-      <CardHeader
-        title="Add Your Experience"
-        subheader="Share the roles you've held, the places you've worked, and the tools you've mastered. Every detail adds depth to your story."
-        sx={{ textAlign: "center", pb: 0 }}
-      />
-      <CardContent>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-          {fields.map((exp, index) => (
-            <Box key={exp.id} mb={3}>
-              {index === fields.length - 1 ? (
-                <ExperienceStepItem
-                  control={control}
-                  register={register}
-                  index={index}
-                />
-              ) : (
-                <Paper variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
-                  <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="flex-start"
-                  >
-                    <Box>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={1}
-                        mb={1}
-                      >
-                        <WorkOutlineIcon color="primary" fontSize="small" />
-                        <Typography variant="subtitle1" fontWeight="bold">
-                          {exp.company?.name || "Unnamed Company"}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          ({exp.company?.city})
-                        </Typography>
+    <Card shadow="md" radius="md" p="xl" maw={800} mx="auto" mt="xl">
+      <ProgressBar percentage={50} />
+      <Title order={2} ta="center" mb="xs">
+        Add Your Experience
+      </Title>
+      <Text ta="center" color="dimmed" mb="md">
+        Share the roles you've held, the places you've worked, and the tools
+        you've mastered. Every detail adds depth to your story.
+      </Text>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+        {fields.map((exp, index) => (
+          <Box key={exp.id} mb="md">
+            {index === fields.length - 1 ? (
+              <ExperienceStepItem
+                control={control}
+                register={register}
+                index={index}
+              />
+            ) : (
+              <Paper withBorder p="md" radius="md" mb="xs">
+                <Group align="flex-start" justify="space-between">
+                  <Box>
+                    <Group gap={8} align="center" mb={4}>
+                      <IconBuilding
+                        size={16}
+                        color="var(--mantine-color-blue-6)"
+                      />
+                      <Text fw={700}>
+                        {exp.company?.name || "Unnamed Company"}
+                      </Text>
+                      <Text size="sm" color="dimmed">
+                        ({exp.company?.city})
+                      </Text>
+                    </Group>
+                    <Group gap={8} align="center" mb={4}>
+                      <IconMapPin
+                        size={14}
+                        color="var(--mantine-color-gray-6)"
+                      />
+                      <Text size="sm" color="dimmed">
+                        {exp.startdate
+                          ? new Date(exp.startdate).toLocaleDateString()
+                          : ""}
+                        {" – "}
+                        {exp.enddate
+                          ? new Date(exp.enddate).toLocaleDateString()
+                          : ""}
+                      </Text>
+                    </Group>
+                    {exp.company?.description && (
+                      <Text size="sm" mb={4}>
+                        {exp.company.description}
+                      </Text>
+                    )}
+                    {exp.tasks && exp.tasks.length > 0 && (
+                      <Stack gap={2} pl={12} mt={4}>
+                        {exp.tasks.map((task, i) => (
+                          <Text size="sm" key={i}>
+                            • {task}
+                          </Text>
+                        ))}
                       </Stack>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={1}
-                        mb={1}
-                      >
-                        <LocationOnOutlinedIcon
-                          color="action"
-                          fontSize="small"
+                    )}
+                    {exp.tools && exp.tools.length > 0 && (
+                      <Group gap={4} mt={8} wrap="wrap">
+                        <IconTools
+                          size={14}
+                          color="var(--mantine-color-gray-6)"
                         />
-                        <Typography variant="body2" color="text.secondary">
-                          {new Date(exp.startdate).toLocaleDateString()} –{" "}
-                          {new Date(exp.enddate).toLocaleDateString()}
-                        </Typography>
-                      </Stack>
-                      {exp.company?.description && (
-                        <Typography variant="body2" paragraph>
-                          {exp.company.description}
-                        </Typography>
-                      )}
-                      {exp.tasks && exp.tasks.length > 0 && (
-                        <List dense sx={{ pl: 2 }}>
-                          {exp.tasks.map((task, i) => (
-                            <ListItem key={i} sx={{ py: 0.5 }}>
-                              <ListItemText primary={`• ${task}`} />
-                            </ListItem>
-                          ))}
-                        </List>
-                      )}
-                      {exp.tools && exp.tools.length > 0 && (
-                        <Stack
-                          direction="row"
-                          spacing={1}
-                          mt={1}
-                          flexWrap="wrap"
-                        >
-                          <BuildOutlinedIcon
-                            color="action"
-                            fontSize="small"
-                            sx={{ mt: 0.5 }}
-                          />
-                          <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            sx={{ mr: 1 }}
+                        <Text size="sm" color="dimmed" mr={4}>
+                          <strong>Tools:</strong>
+                        </Text>
+                        {exp.tools.map((tool, i) => (
+                          <Badge
+                            key={i}
+                            size="sm"
+                            color="black"
+                            variant="light"
                           >
-                            <strong>Tools:</strong>
-                          </Typography>
-                          {exp.tools.map((tool, i) => (
-                            <Chip
-                              key={i}
-                              label={tool}
-                              size="small"
-                              variant="outlined"
-                            />
-                          ))}
-                        </Stack>
-                      )}
-                    </Box>
-                    <IconButton
-                      onClick={() => remove(index)}
-                      color="error"
-                      aria-label="Remove experience"
-                    >
-                      <RemoveCircleOutlineIcon />
-                    </IconButton>
-                  </Stack>
-                </Paper>
-              )}
-              {index < fields.length - 1 && <Divider sx={{ my: 2 }} />}
-            </Box>
-          ))}
-          <Divider sx={{ my: 3 }} />
-          <Stack direction="row" justifyContent="space-between">
-            <Button type="submit" variant="contained" size="large">
-              Next
-            </Button>
-            <Button
-              type="button"
-              variant="outlined"
-              startIcon={<AddCircleOutlineIcon />}
-              onClick={() =>
-                append({
-                  company: { name: "", city: "" },
-                  startdate: new Date(),
-                  enddate: new Date(),
-                  tasks: [],
-                  tools: [],
-                })
-              }
-            >
-              Add Experience {fields.length + 1}
-            </Button>
-          </Stack>
-        </Box>
-      </CardContent>
+                            {tool}
+                          </Badge>
+                        ))}
+                      </Group>
+                    )}
+                  </Box>
+                  <Button
+                    variant="light"
+                    color="red"
+                    size="xs"
+                    onClick={() => remove(index)}
+                    leftSection={<IconMinus size={16} />}
+                  ></Button>
+                </Group>
+              </Paper>
+            )}
+            {index < fields.length - 1 && <Divider my="sm" />}
+          </Box>
+        ))}
+        <Divider my="lg" />
+        <Group justify="space-between">
+          <Button type="submit" size="md">
+            Next
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            leftSection={<IconPlus size={18} />}
+            onClick={() =>
+              append({
+                company: { name: "", city: "" },
+                startdate: new Date(),
+                enddate: new Date(),
+                tasks: [],
+                tools: [],
+              })
+            }
+          >
+            Add Experience {fields.length + 1}
+          </Button>
+        </Group>
+      </Box>
     </Card>
   );
 }

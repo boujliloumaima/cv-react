@@ -1,9 +1,16 @@
 import { Resume } from "../../../models";
 import { Control, UseFormRegister } from "react-hook-form";
-import { Box, TextField, Typography, Stack, Paper } from "@mui/material";
+import {
+  Box,
+  TextInput,
+  Text,
+  Stack,
+  Paper,
+  Title,
+  Group,
+} from "@mantine/core";
 import { Controller } from "react-hook-form";
-
-import MuiTagInput from "../../tag/MuiTagInput";
+import TagInput from "../../tag/TagInput";
 
 interface Props {
   control: Control<Resume>;
@@ -13,80 +20,63 @@ interface Props {
 
 export default function EducationStepItem({ control, register, index }: Props) {
   return (
-    <Paper elevation={2} sx={{ p: 3, borderRadius: 2, mb: 2 }}>
-      <Typography variant="h6" gutterBottom>
+    <Paper withBorder p="xl" radius="md" mb="md">
+      <Title order={4} mb="md">
         Education {index + 1}
-      </Typography>
+      </Title>
 
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
-        <TextField
-          fullWidth
-          label="Institution Name"
-          placeholder="e.g. Université Mohammed V"
-          helperText="This helps recruiters recognize the credibility of your academic background."
-          {...register(`educations.${index}.institut.name`)}
-        />
-        <TextField
-          fullWidth
-          label="Institution City"
-          placeholder="e.g. Rabat"
-          helperText="Location adds context to your education and can reflect regional expertise."
-          {...register(`educations.${index}.institut.city`)}
-        />
-      </Stack>
+      <Stack gap="md" mb="md">
+        <Group grow>
+          <TextInput
+            label="Institution Name"
+            placeholder="e.g. Université Mohammed V"
+            description="This helps recruiters recognize the credibility of your academic background."
+            {...register(`educations.${index}.institut.name`)}
+          />
+          <TextInput
+            label="Institution City"
+            placeholder="e.g. Rabat"
+            description="Location adds context to your education and can reflect regional expertise."
+            {...register(`educations.${index}.institut.city`)}
+          />
+        </Group>
 
-      <TextField
-        fullWidth
-        label="Diploma"
-        placeholder="e.g. Master in Luxury Marketing"
-        helperText="Your diploma is often the first thing recruiters look for—make it clear and proud."
-        sx={{ mb: 2 }}
-        {...register(`educations.${index}.diploma`)}
-      />
+        <TextInput
+          label="Diploma"
+          placeholder="e.g. Master in Luxury Marketing"
+          description="Your diploma is often the first thing recruiters look for—make it clear and proud."
+          {...register(`educations.${index}.diploma`)}
+        />
 
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
-        <TextField
-          fullWidth
-          label="Start Date"
-          type="date"
-          InputLabelProps={{ shrink: true }}
-          helperText="Helps show the timeline of your academic journey."
-          {...register(`educations.${index}.startdate`)}
-        />
-        <TextField
-          fullWidth
-          label="End Date"
-          type="date"
-          InputLabelProps={{ shrink: true }}
-          helperText="Helps show the timeline of your academic journey."
-          {...register(`educations.${index}.enddate`)}
-        />
+        <Group grow>
+          <TextInput
+            label="Start Date"
+            type="date"
+            description="Helps show the timeline of your academic journey."
+            {...register(`educations.${index}.startdate`)}
+          />
+          <TextInput
+            label="End Date"
+            type="date"
+            description="Helps show the timeline of your academic journey."
+            {...register(`educations.${index}.enddate`)}
+          />
+        </Group>
       </Stack>
 
       <Box>
-        <Typography variant="subtitle1" gutterBottom>
+        <Text fw={500} mb={4}>
           Modules
-        </Typography>
-        <Controller
+        </Text>
+        <TagInput
           name={`educations.${index}.modules`}
           control={control}
-          render={({ field }) => (
-            <MuiTagInput
-              {...field}
-              control={control}
-              placeholder="Add modules and press Enter..."
-            />
-          )}
+          placeholder="Add modules and press Enter..."
         />
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          display="block"
-          mt={1}
-        >
+        <Text size="xs" color="dimmed" mt={4}>
           Highlight the subjects that shaped your expertise. Press Enter to add
           each one.
-        </Typography>
+        </Text>
       </Box>
     </Paper>
   );

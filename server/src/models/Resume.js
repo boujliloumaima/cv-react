@@ -8,19 +8,13 @@ const institutSchema = new mongoose.Schema({
 
 const languageSchema = new mongoose.Schema({
   name: String,
-  level: {
-    type: Number,
-    enum: [0, 1, 2, 3, 4],
-  },
+  level: String,
 });
 
 const skillSchema = new mongoose.Schema({
   name: String,
   level: Number,
-  type: {
-    type: Number,
-    enum: [0, 1],
-  },
+  type: String,
 });
 
 const educationSchema = new mongoose.Schema({
@@ -52,10 +46,7 @@ const resumeSchema = new mongoose.Schema(
     birthday: Date,
     email: String,
     jobTitle: String,
-    gender: {
-      type: Number,
-      enum: [0, 1],
-    },
+    gender: String,
     languages: [languageSchema],
     skills: [skillSchema],
     educations: [educationSchema],

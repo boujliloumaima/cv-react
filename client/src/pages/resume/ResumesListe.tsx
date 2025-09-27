@@ -3,19 +3,21 @@ import { useQuery } from "@tanstack/react-query";
 import {
   Box,
   Button,
-  Typography,
   Paper,
   Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  IconButton,
+  TableThead,
+  TableTbody,
+  TableTr,
+  TableTh,
+  TableTd,
   Stack,
-} from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import HomeIcon from "@mui/icons-material/Home";
+  Title,
+  Text,
+  Group,
+  ActionIcon,
+} from "@mantine/core";
+import { IconEye, IconHome } from "@tabler/icons-react";
+import { Resume } from "../../models";
 
 //import { getAllResumes } from "../../services/resumeService";
 export default function ResumesList() {
@@ -53,72 +55,57 @@ export default function ResumesList() {
   if (isError) return <p>Error fetching resumes.</p>;
 
   return (
-    <Box sx={{ p: 3 }}>
-      <Typography variant="h4" gutterBottom>
+    <Box p={24}>
+      <Title order={2} mb="md">
         All Resumes
-      </Typography>
+      </Title>
 
       {resumesList.length === 0 ? (
-        <Paper sx={{ p: 3, textAlign: "center", mt: 3 }}>
-          <Typography variant="body1">No resumes found.</Typography>
+        <Paper p="xl" ta="center" mt="md">
+          <Text>No resumes found.</Text>
         </Paper>
       ) : (
-        <TableContainer component={Paper} sx={{ mt: 2, boxShadow: 3 }}>
-          <Table>
-            <TableHead sx={{ backgroundColor: "primary.main" }}>
-              <TableRow>
-                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                  #
-                </TableCell>
-                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                  Name
-                </TableCell>
-                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                  Email
-                </TableCell>
-                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                  Phone
-                </TableCell>
-                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                  Job Title
-                </TableCell>
-                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
-                  Actions
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {resumesList.map((resume, index) => (
-                <TableRow
-                  key={index}
-                  hover
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>{resume.name}</TableCell>
-                  <TableCell>{resume.email}</TableCell>
-                  <TableCell>{resume.phone}</TableCell>
-                  <TableCell>{resume.jobTitle}</TableCell>
-                  <TableCell>
-                    <IconButton
-                      color="primary"
+        <Paper shadow="md" radius="md" p={0} mt="md">
+          <Table highlightOnHover withColumnBorders>
+            <TableThead>
+              <TableTr>
+                <TableTh>#</TableTh>
+                <TableTh>Name</TableTh>
+                <TableTh>Email</TableTh>
+                <TableTh>Phone</TableTh>
+                <TableTh>Job Title</TableTh>
+                <TableTh>Actions</TableTh>
+              </TableTr>
+            </TableThead>
+            <TableTbody>
+              {resumesList.map((resume: Resume, index: number) => (
+                <TableTr key={index}>
+                  <TableTd>{index + 1}</TableTd>
+                  <TableTd>{resume.name}</TableTd>
+                  <TableTd>{resume.email}</TableTd>
+                  <TableTd>{resume.phone}</TableTd>
+                  <TableTd>{resume.jobTitle}</TableTd>
+                  <TableTd>
+                    <ActionIcon
+                      color="blue"
+                      variant="light"
                       onClick={() => viewDetail(resume._id)}
                       aria-label="View resume"
                     >
-                      <VisibilityIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
+                      <IconEye size={20} />
+                    </ActionIcon>
+                  </TableTd>
+                </TableTr>
               ))}
-            </TableBody>
+            </TableTbody>
           </Table>
-        </TableContainer>
+        </Paper>
       )}
 
-      <Stack direction="row" justifyContent="flex-end" sx={{ mt: 3 }}>
+      <Stack justify="flex-end" mt="lg">
         <Button
-          variant="outlined"
-          startIcon={<HomeIcon />}
+          variant="outline"
+          leftSection={<IconHome size={18} />}
           onClick={() => navigate("/home")}
         >
           Back Home

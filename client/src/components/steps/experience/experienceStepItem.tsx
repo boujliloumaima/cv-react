@@ -1,17 +1,18 @@
-import { Control, UseFormRegister } from "react-hook-form";
+import { Control, UseFormRegister, Controller } from "react-hook-form";
 import { Resume } from "../../../models";
 import {
   Box,
-  TextField,
-  Typography,
+  TextInput,
+  Textarea,
   Stack,
   Divider,
-  Chip,
   Paper,
-} from "@mui/material";
-import { Controller } from "react-hook-form";
+  Title,
+  Text,
+  Group,
+} from "@mantine/core";
 
-import MuiTagInput from "../../tag/MuiTagInput";
+import TagInput from "../../tag/TagInput";
 
 interface Props {
   control: Control<Resume>;
@@ -25,107 +26,77 @@ export default function ExperienceStepItem({
   index,
 }: Props) {
   return (
-    <Paper variant="outlined" sx={{ p: 3, borderRadius: 2, mb: 2 }}>
-      <Typography variant="h6" gutterBottom>
+    <Paper withBorder p="xl" radius="md" mb="md">
+      <Title order={4} mb="md">
         Experience {index + 1}
-      </Typography>
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
-        <TextField
-          fullWidth
-          label="Company Name"
-          placeholder="e.g. Microsoft"
-          helperText="Enter the name of the organization where you worked."
-          {...register(`experiences.${index}.company.name`)}
+      </Title>
+      <Stack gap="md" mb="md">
+        <Group grow>
+          <TextInput
+            label="Company Name"
+            placeholder="e.g. Microsoft"
+            description="Enter the name of the organization where you worked."
+            {...register(`experiences.${index}.company.name`)}
+          />
+          <TextInput
+            label="Company City"
+            placeholder="e.g. Casablanca"
+            description="Location helps contextualize your experience."
+            {...register(`experiences.${index}.company.city`)}
+          />
+        </Group>
+        <Textarea
+          label="Description"
+          placeholder="Briefly describe the company or your role there."
+          description="Briefly describe the company or your role there to give more context."
+          minRows={3}
+          {...register(`experiences.${index}.company.description`)}
         />
-        <TextField
-          fullWidth
-          label="Company City"
-          placeholder="e.g. Casablanca"
-          helperText="Location helps contextualize your experience."
-          {...register(`experiences.${index}.company.city`)}
-        />
+        <Group grow>
+          <TextInput
+            label="Start Date"
+            type="date"
+            description="Shows when your journey with this company began."
+            {...register(`experiences.${index}.startdate`)}
+          />
+          <TextInput
+            label="End Date"
+            type="date"
+            description="Helps define the duration and progression of your role."
+            {...register(`experiences.${index}.enddate`)}
+          />
+        </Group>
       </Stack>
-
-      <TextField
-        fullWidth
-        label="Description"
-        placeholder="Briefly describe the company or your role there."
-        helperText="Briefly describe the company or your role there to give more context."
-        multiline
-        rows={3}
-        sx={{ mb: 2 }}
-        {...register(`experiences.${index}.company.description`)}
-      />
-
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
-        <TextField
-          fullWidth
-          label="Start Date"
-          type="date"
-          InputLabelProps={{ shrink: true }}
-          helperText="Shows when your journey with this company began."
-          {...register(`experiences.${index}.startdate`)}
-        />
-        <TextField
-          fullWidth
-          label="End Date"
-          type="date"
-          InputLabelProps={{ shrink: true }}
-          helperText="Helps define the duration and progression of your role."
-          {...register(`experiences.${index}.enddate`)}
-        />
-      </Stack>
-
-      <Box mb={2}>
-        <Typography variant="subtitle1" gutterBottom>
+      <Divider my="sm" />
+      <Box mb="md">
+        <Text fw={500} mb={4}>
           Key Tasks
-        </Typography>
-        <Controller
+        </Text>
+
+        <TagInput
           name={`experiences.${index}.tasks`}
           control={control}
-          render={({ field }) => (
-            <MuiTagInput
-              {...field}
-              control={control}
-              placeholder="Add tasks and press Enter..."
-            />
-          )}
+          placeholder="Add tasks and press Enter..."
         />
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          display="block"
-          mt={1}
-        >
+        <Text size="xs" color="dimmed" mt={4}>
           List your main responsibilities or achievements. Press Enter (or tab)
           to add each one.
-        </Typography>
+        </Text>
       </Box>
-
       <Box>
-        <Typography variant="subtitle1" gutterBottom>
+        <Text fw={500} mb={4}>
           Tools Used
-        </Typography>
-        <Controller
+        </Text>
+        <TagInput
           name={`experiences.${index}.tools`}
           control={control}
-          render={({ field }) => (
-            <MuiTagInput
-              {...field}
-              control={control}
-              placeholder="Add tools and press Enter..."
-            />
-          )}
+          placeholder="Add tools and press Enter..."
         />
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          display="block"
-          mt={1}
-        >
+
+        <Text size="xs" color="dimmed" mt={4}>
           Mention platforms, software, or techniques you used. Press Enter (or
           tab) to add each one.
-        </Typography>
+        </Text>
       </Box>
     </Paper>
   );

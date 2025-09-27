@@ -10,24 +10,32 @@ import HomePage from "./pages/home/HomePage";
 import ResumeDetail from "./pages/resume/ResumeDetail";
 import RegisterPage from "./pages/register/registerPage";
 import LoginPage from "./pages/login/loginPage";
+import "@mantine/core/styles.css";
+import {
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from "@mantine/core";
 
 export default function App() {
   return (
     <div className="container-cv ">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/resume/add/profile" element={<ProfileStep />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/resume/add/education" element={<EducationStep />} />
-          <Route path="/resume/add/experience" element={<ExperienceStep />} />
-          <Route path="/resume/add/skills" element={<SkillsStep />} />
-          <Route path="/resume/add/languages" element={<LanguagesStep />} />
-          <Route path="/resumes/all" element={<ResumesList />} />
-          <Route path="/resume/:id" element={<ResumeDetail />} />
-          <Route path="/home" element={<HomePage />} />
-        </Routes>
-      </BrowserRouter>
+      <MantineProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/resume/add/profile" element={<ProfileStep />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/resume/add/education" element={<EducationStep />} />
+            <Route path="/resume/add/experience" element={<ExperienceStep />} />
+            <Route path="/resume/add/skills" element={<SkillsStep />} />
+            <Route path="/resume/add/languages" element={<LanguagesStep />} />
+            <Route path="/resumes/all" element={<ResumesList />} />
+            <Route path="/resume/:id" element={<ResumeDetail />} />
+            <Route path="/home" element={<HomePage />} />
+          </Routes>
+        </BrowserRouter>
+      </MantineProvider>
     </div>
   );
 }

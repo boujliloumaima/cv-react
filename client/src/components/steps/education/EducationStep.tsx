@@ -5,27 +5,30 @@ import ProgressBar from "../../progress/CardWithProgress";
 import {
   Box,
   Button,
-  Typography,
   Card,
-  CardContent,
-  CardHeader,
   Divider,
-  IconButton,
   Stack,
   Paper,
-  Chip,
-} from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
-import SchoolIcon from "@mui/icons-material/School";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
+  Text,
+  Title,
+  Group,
+  Badge,
+} from "@mantine/core";
+import {
+  IconPlus,
+  IconMinus,
+  IconSchool,
+  IconBook,
+  IconCalendar,
+} from "@tabler/icons-react";
 
 import EducationStepItem from "./EducationStepItem";
+import { useEffect } from "react";
+import { getCurrentResume } from "../../../services/resumeService";
 
 // Composant principal
 export default function EducationStep() {
-  const { register, handleSubmit, control } = useForm<Resume>();
+  const { register, handleSubmit, control, reset } = useForm<Resume>();
   const {
     fields: educationFields,
     append: addEducation,
@@ -36,7 +39,9 @@ export default function EducationStep() {
   });
 
   const navigate = useNavigate();
-
+  useEffect(() => {
+    reset(getCurrentResume());
+  }, [reset]);
   const onSubmit: SubmitHandler<Resume> = (data) => {
     const currentResume = JSON.parse(
       localStorage.getItem("currentResume") || "{}"
@@ -47,123 +52,118 @@ export default function EducationStep() {
   };
 
   return (
-    <Card sx={{ maxWidth: 800, margin: "auto", mt: 4, p: 3, boxShadow: 3 }}>
+    <Card shadow="md" radius="md" p="xl" maw={800} mx="auto" mt="xl">
       <ProgressBar percentage={75} />
-      <CardHeader
-        title="Add Your Education"
-        subheader="Your academic path says a lot about your foundation. Let’s highlight the places and programs that shaped your expertise."
-        sx={{ textAlign: "center", pb: 0 }}
-      />
-      <CardContent>
-        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-          {educationFields.map((edu, index) => (
-            <Box key={edu.id} mb={3}>
-              {index === educationFields.length - 1 ? (
-                <EducationStepItem
-                  control={control}
-                  register={register}
-                  index={index}
-                />
-              ) : (
-                <Paper variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
-                  <Stack
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="flex-start"
-                  >
-                    <Box>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={1}
-                        mb={0.5}
-                      >
-                        <SchoolIcon color="primary" fontSize="small" />
-                        <Typography variant="subtitle1" fontWeight="bold">
-                          {edu.institut?.name || "Unnamed Institution"},{" "}
-                          {edu.institut?.city}
-                        </Typography>
-                      </Stack>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={1}
-                        mb={0.5}
-                      >
-                        <MenuBookIcon color="action" fontSize="small" />
-                        <Typography variant="body1">
-                          <strong>Diploma:</strong> {edu.diploma}
-                        </Typography>
-                      </Stack>
-                      <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={1}
-                        mb={1}
-                      >
-                        <DateRangeIcon color="action" fontSize="small" />
-                        <Typography variant="body1">
-                          <strong>Dates:</strong>{" "}
-                          {new Date(edu.startdate).toLocaleDateString()} -{" "}
-                          {new Date(edu.enddate).toLocaleDateString()}
-                        </Typography>
-                      </Stack>
-                      {edu.modules && edu.modules.length > 0 && (
-                        <Stack direction="row" alignItems="center" spacing={1}>
-                          <MenuBookIcon color="action" fontSize="small" />
-                          <Typography variant="body1">
-                            <strong>Modules:</strong>
-                          </Typography>
-                          <Box>
-                            {edu.modules.map((module, i) => (
-                              <Chip
-                                key={i}
-                                label={module}
-                                size="small"
-                                sx={{ ml: 1, mb: 0.5 }}
-                              />
-                            ))}
-                          </Box>
-                        </Stack>
-                      )}
-                    </Box>
-                    <IconButton
-                      onClick={() => removeEducation(index)}
-                      color="error"
-                      aria-label="Remove education"
-                    >
-                      <RemoveCircleOutlineIcon />
-                    </IconButton>
-                  </Stack>
-                </Paper>
-              )}
-              {index < educationFields.length - 1 && <Divider sx={{ my: 2 }} />}
-            </Box>
-          ))}
-          <Divider sx={{ my: 3 }} />
-          <Stack direction="row" justifyContent="space-between">
-            <Button type="submit" variant="contained" size="large">
-              Next
-            </Button>
-            <Button
-              type="button"
-              variant="outlined"
-              startIcon={<AddCircleOutlineIcon />}
-              onClick={() =>
-                addEducation({
-                  institut: { name: "", city: "" },
-                  diploma: "",
-                  startdate: new Date(),
-                  enddate: new Date(),
-                  modules: [],
-                })
-              }
-            >
-              Add Education {educationFields.length + 1}
-            </Button>
-          </Stack>
-        </Box>
-      </CardContent>
+      <Title order={2} ta="center" mb="xs">
+        Add Your Education
+      </Title>
+      <Text ta="center" color="dimmed" mb="md">
+        Your academic path says a lot about your foundation. Let’s highlight the
+        places and programs that shaped your expertise.
+      </Text>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+        {educationFields.map((edu, index) => (
+          <Box key={edu.id} mb="md">
+            {index === educationFields.length - 1 ? (
+              <EducationStepItem
+                control={control}
+                register={register}
+                index={index}
+              />
+            ) : (
+              <Paper withBorder p="md" radius="md" mb="xs">
+                <Group align="flex-start" justify="space-between">
+                  <Box>
+                    <Group gap={8} align="center" mb={4}>
+                      <IconSchool
+                        size={16}
+                        color="var(--mantine-color-blue-6)"
+                      />
+                      <Text fw={700}>
+                        {edu.institut?.name || "Unnamed Institution"},{" "}
+                        {edu.institut?.city}
+                      </Text>
+                    </Group>
+                    <Group gap={8} align="center" mb={4}>
+                      <IconBook size={14} color="var(--mantine-color-gray-6)" />
+                      <Text size="sm" color="dimmed">
+                        <strong>Diploma:</strong> {edu.diploma}
+                      </Text>
+                    </Group>
+                    <Group gap={8} align="center" mb={4}>
+                      <IconCalendar
+                        size={14}
+                        color="var(--mantine-color-gray-6)"
+                      />
+                      <Text size="sm" color="dimmed">
+                        <strong>Dates:</strong>{" "}
+                        {edu.startdate
+                          ? new Date(edu.startdate).toLocaleDateString()
+                          : ""}
+                        {" - "}
+                        {edu.enddate
+                          ? new Date(edu.enddate).toLocaleDateString()
+                          : ""}
+                      </Text>
+                    </Group>
+                    {edu.modules && edu.modules.length > 0 && (
+                      <Group gap={4} align="center" mt={4} wrap="wrap">
+                        <IconBook
+                          size={14}
+                          color="var(--mantine-color-gray-6)"
+                        />
+                        <Text size="sm" color="dimmed">
+                          <strong>Modules:</strong>
+                        </Text>
+                        {edu.modules.map((module, i) => (
+                          <Badge
+                            key={i}
+                            size="sm"
+                            color="black"
+                            variant="light"
+                          >
+                            {module}
+                          </Badge>
+                        ))}
+                      </Group>
+                    )}
+                  </Box>
+                  <Button
+                    variant="light"
+                    color="red"
+                    size="xs"
+                    onClick={() => removeEducation(index)}
+                    leftSection={<IconMinus size={16} />}
+                  ></Button>
+                </Group>
+              </Paper>
+            )}
+            {index < educationFields.length - 1 && <Divider my="sm" />}
+          </Box>
+        ))}
+        <Divider my="lg" />
+        <Group justify="space-between">
+          <Button type="submit" size="md">
+            Next
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            leftSection={<IconPlus size={18} />}
+            onClick={() =>
+              addEducation({
+                institut: { name: "", city: "" },
+                diploma: "",
+                startdate: new Date(),
+                enddate: new Date(),
+                modules: [],
+              })
+            }
+          >
+            Add Education {educationFields.length + 1}
+          </Button>
+        </Group>
+      </Box>
     </Card>
   );
 }

@@ -9,3 +9,15 @@ export function getAllResumes() {
 export function getResume(index: number) {
   return getAllResumes()[index];
 }
+
+export function getCurrentResume() {
+  const stored = localStorage.getItem("currentResume");
+  if (stored) {
+    try {
+      const parsed = JSON.parse(stored);
+      return parsed;
+    } catch (e) {
+      return {};
+    }
+  }
+}

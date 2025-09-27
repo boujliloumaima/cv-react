@@ -1,4 +1,5 @@
 export interface Resume {
+  _id: string;
   name: string;
   phone: string;
   nationalite: string;
@@ -14,8 +15,8 @@ export interface Resume {
 }
 
 export enum Gender {
-  male = 0,
-  female = 1,
+  MALE = "male",
+  FEMALE = "female",
 }
 
 export interface Lang {
@@ -24,11 +25,11 @@ export interface Lang {
 }
 
 export enum LangLevel {
-  mother = 0,
-  beginner = 1,
-  intermediate = 2,
-  fluent = 3,
-  expert = 4,
+  MOTHER = "mother",
+  BEGINNER = "beginner",
+  INTERMEDIATE = "intermediate",
+  FLUENT = "fluent",
+  EXPERT = "expert",
 }
 
 export interface Education {
@@ -52,8 +53,8 @@ export interface Skill {
 }
 
 export enum SkillType {
-  technical = 0,
-  soft = 1,
+  TECHNICAL = "technical",
+  SOFT = "soft",
 }
 
 export interface Experience {

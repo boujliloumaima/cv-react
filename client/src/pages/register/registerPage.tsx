@@ -2,15 +2,16 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import {
   Card,
-  CardContent,
-  CardActions,
-  TextField,
+  TextInput,
   Button,
-  Typography,
+  Title,
   Box,
-  Link,
+  Text,
   Divider,
-} from "@mui/material";
+  Group,
+  Anchor,
+  Stack,
+} from "@mantine/core";
 
 interface RegisterForm {
   name: string;
@@ -47,80 +48,45 @@ export default function RegisterPage() {
     }
   };
   return (
-    <Card
-      sx={{
-        minWidth: 350,
-        maxWidth: 500,
-        margin: "auto",
-        mt: 5,
-        p: 3,
-      }}
-    >
-      <CardContent sx={{ textAlign: "center" }}>
-        <Typography variant="h5" fontWeight="bold" gutterBottom>
-          Register
-        </Typography>
-      </CardContent>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ p: 2 }}>
-        <TextField
-          label="Full Name"
-          placeholder="Enter your full name"
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          {...register("name")}
-          required
-        />
-        <TextField
-          label="Email"
-          type="email"
-          placeholder="Enter your email"
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          {...register("email")}
-          required
-        />
-        <TextField
-          label="Password"
-          type="password"
-          placeholder="Enter your password"
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          {...register("password")}
-          required
-        />
-        <CardContent sx={{ pt: 0, pb: 0 }}>
-          <Typography
-            variant="body2"
-            color="text.secondary"
-            textAlign="center"
-            sx={{ mt: 1 }}
-          >
-            Already have an account?{" "}
-            <Link href="/" underline="hover" fontWeight="bold">
-              Log in
-            </Link>
-          </Typography>
-        </CardContent>
-        <Divider sx={{ my: 2 }} />
-        <CardActions sx={{ justifyContent: "center" }}>
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            fullWidth
-            sx={{
-              backgroundColor: "primary.main",
-              "&:hover": {
-                backgroundColor: "primary.dark",
-              },
-            }}
-          >
+    <Card shadow="md" radius="md" p="xl" maw={400} mx="auto" mt={80} withBorder>
+      <Title order={2} align="center" mb="md">
+        Register
+      </Title>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+        <Stack gap="sm">
+          <TextInput
+            label="Full Name"
+            placeholder="Enter your full name"
+            {...register("name")}
+            required
+          />
+          <TextInput
+            label="Email"
+            type="email"
+            placeholder="Enter your email"
+            {...register("email")}
+            required
+          />
+          <TextInput
+            label="Password"
+            type="password"
+            placeholder="Enter your password"
+            {...register("password")}
+            required
+          />
+          <Group justify="center" mt="xs">
+            <Text size="sm" color="dimmed">
+              Already have an account?{" "}
+              <Anchor href="/" fw={700}>
+                Log in
+              </Anchor>
+            </Text>
+          </Group>
+          <Divider my="sm" />
+          <Button type="submit" size="md" fullWidth>
             Sign Up
           </Button>
-        </CardActions>
+        </Stack>
       </Box>
     </Card>
   );
