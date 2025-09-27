@@ -1,5 +1,5 @@
 import express from "express";
-import verifyToken from "../middlewares/auth.js";
+import { verifyToken } from "../middlewares/auth.js";
 import {
   createResume,
   getResumes,
@@ -7,9 +7,8 @@ import {
   getResumeById,
 } from "../controller/ResumeController.js";
 const router = express.Router();
-router.get("/", verifyToken, getResumes);
 // protect the createResume route with JWT middleware
 router.post("/", verifyToken, createResume);
-router.get("/resumes", verifyToken, getResumesByUser);
-router.get("/:id", getResumeById);
+router.get("/", verifyToken, getResumesByUser);
+router.get("/:id", verifyToken, getResumeById);
 export default router;

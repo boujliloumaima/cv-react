@@ -35,7 +35,7 @@ export const verifyAdminToken = (req, res, next) => {
 
   try {
     const user = jwt.verify(token, ENV.JWT_SECRET);
-    if (!user.isAdmin) {
+    if (!user.admin) {
       logger.warn("Access attempt to admin ressources");
       return res
         .status(401)
