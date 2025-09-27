@@ -1,8 +1,6 @@
 import User from "../models/User.js";
-import jwt from "jsonwebtoken";
 import { logger } from "../config/logger.js";
 import bcrypt from "bcryptjs";
-import ENV from "../config/index.js";
 import setTokenCookie from "../utils/setTokenCookie.js";
 
 // CREATE USER
@@ -23,6 +21,7 @@ export const createUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      isAdmin: false,
     });
     await newUser.save();
     logger.info(`New user registered: ${email}`);
@@ -53,7 +52,9 @@ export const loginUser = async (req, res) => {
     }
     setTokenCookie(user, res);
     const { password: _, ...userData } = user.toObject();
-    logger.info(`Login successful: ${email} (${user.role})`);
+    logger.info(
+      `Login successful: ${email} (${user.isAdmin ? "Admin" : "non Admin"})`
+    );
     res.status(200).json({ message: "Welcome user", user: userData });
   } catch (error) {
     logger.error("Error during login", error);

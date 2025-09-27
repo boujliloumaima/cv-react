@@ -2,9 +2,13 @@ import jwt from "jsonwebtoken";
 import ENV from "../config/index.js";
 
 const setTokenCookie = (user, res) => {
-  const token = jwt.sign({ id: user._id }, ENV.JWT_SECRET, {
-    expiresIn: "24h",
-  });
+  const token = jwt.sign(
+    { id: user._id, admin: user.isAdmin ?? false },
+    ENV.JWT_SECRET,
+    {
+      expiresIn: "24h",
+    }
+  );
 
   res.cookie("token", token, {
     httpOnly: true,
