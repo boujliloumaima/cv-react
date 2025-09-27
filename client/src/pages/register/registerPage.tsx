@@ -1,7 +1,16 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import "../login/login.css";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Link,
+  Divider,
+} from "@mui/material";
 
 interface RegisterForm {
   name: string;
@@ -38,45 +47,81 @@ export default function RegisterPage() {
     }
   };
   return (
-    <div className="container">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <p className="app-name">CVBuilder</p>
-        <div className="form-group">
-          <label htmlFor=""> Full name</label>
-          <input {...register("name")} placeholder="Name" required />
-        </div>
-        <div className="form-group">
-          <label htmlFor="">Email</label>
-          <input
-            {...register("email")}
-            type="email"
-            placeholder="Email"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="">Password</label>
-          <input
-            {...register("password")}
-            type="password"
-            placeholder="Password"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <button type="submit" className="btn register-btn">
-            Sign up
-          </button>
-        </div>
-        <div className="register">
-          <p>
-            Already have an account ?{" "}
-            <Link to="/" className="signup-link">
+    <Card
+      sx={{
+        minWidth: 350,
+        maxWidth: 500,
+        margin: "auto",
+        mt: 5,
+        p: 3,
+      }}
+    >
+      <CardContent sx={{ textAlign: "center" }}>
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
+          Register
+        </Typography>
+      </CardContent>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ p: 2 }}>
+        <TextField
+          label="Full Name"
+          placeholder="Enter your full name"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          {...register("name")}
+          required
+        />
+        <TextField
+          label="Email"
+          type="email"
+          placeholder="Enter your email"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          {...register("email")}
+          required
+        />
+        <TextField
+          label="Password"
+          type="password"
+          placeholder="Enter your password"
+          fullWidth
+          margin="normal"
+          variant="outlined"
+          {...register("password")}
+          required
+        />
+        <CardContent sx={{ pt: 0, pb: 0 }}>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            textAlign="center"
+            sx={{ mt: 1 }}
+          >
+            Already have an account?{" "}
+            <Link href="/" underline="hover" fontWeight="bold">
               Log in
             </Link>
-          </p>
-        </div>
-      </form>
-    </div>
+          </Typography>
+        </CardContent>
+        <Divider sx={{ my: 2 }} />
+        <CardActions sx={{ justifyContent: "center" }}>
+          <Button
+            type="submit"
+            variant="contained"
+            size="large"
+            fullWidth
+            sx={{
+              backgroundColor: "primary.main",
+              "&:hover": {
+                backgroundColor: "primary.dark",
+              },
+            }}
+          >
+            Sign Up
+          </Button>
+        </CardActions>
+      </Box>
+    </Card>
   );
 }
