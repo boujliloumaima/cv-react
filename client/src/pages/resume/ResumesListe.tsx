@@ -1,5 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import {
+  Box,
+  Button,
+  Typography,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  IconButton,
+  Stack,
+} from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import HomeIcon from "@mui/icons-material/Home";
+
 //import { getAllResumes } from "../../services/resumeService";
 export default function ResumesList() {
   const navigate = useNavigate();
@@ -36,41 +53,77 @@ export default function ResumesList() {
   if (isError) return <p>Error fetching resumes.</p>;
 
   return (
-    <div>
-      <h1>All Resumes</h1>
+    <Box sx={{ p: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        All Resumes
+      </Typography>
 
       {resumesList.length === 0 ? (
-        <p>No resumes found.</p>
+        <Paper sx={{ p: 3, textAlign: "center", mt: 3 }}>
+          <Typography variant="body1">No resumes found.</Typography>
+        </Paper>
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>resumes</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Job Title</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {resumesList.map((resume: any, index: number) => (
-              <tr key={index}>
-                <td></td>
-                <td>{resume.name}</td>
-                <td>{resume.email}</td>
-                <td>{resume.phone}</td>
-                <td>{resume.jobTitle}</td>
-                <td>
-                  <button onClick={() => viewDetail(resume._id)}>Voir</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <TableContainer component={Paper} sx={{ mt: 2, boxShadow: 3 }}>
+          <Table>
+            <TableHead sx={{ backgroundColor: "primary.main" }}>
+              <TableRow>
+                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                  #
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                  Name
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                  Email
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                  Phone
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                  Job Title
+                </TableCell>
+                <TableCell sx={{ color: "white", fontWeight: "bold" }}>
+                  Actions
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {resumesList.map((resume, index) => (
+                <TableRow
+                  key={index}
+                  hover
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{resume.name}</TableCell>
+                  <TableCell>{resume.email}</TableCell>
+                  <TableCell>{resume.phone}</TableCell>
+                  <TableCell>{resume.jobTitle}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      color="primary"
+                      onClick={() => viewDetail(resume._id)}
+                      aria-label="View resume"
+                    >
+                      <VisibilityIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
 
-      <button onClick={() => navigate("/home")}>Back Home</button>
-    </div>
+      <Stack direction="row" justifyContent="flex-end" sx={{ mt: 3 }}>
+        <Button
+          variant="outlined"
+          startIcon={<HomeIcon />}
+          onClick={() => navigate("/home")}
+        >
+          Back Home
+        </Button>
+      </Stack>
+    </Box>
   );
 }

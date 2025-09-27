@@ -1,7 +1,17 @@
 import { Control, UseFormRegister } from "react-hook-form";
 import { Resume } from "../../../models";
-import MuiTagInput from "../../tag/MuiTagInput";
+import {
+  Box,
+  TextField,
+  Typography,
+  Stack,
+  Divider,
+  Chip,
+  Paper,
+} from "@mui/material";
+import { Controller } from "react-hook-form";
 
+import MuiTagInput from "../../tag/MuiTagInput";
 
 interface Props {
   control: Control<Resume>;
@@ -15,76 +25,108 @@ export default function ExperienceStepItem({
   index,
 }: Props) {
   return (
-    <div className="experience-card">
-      <div className="form-row">
-        <div className="form-group">
-          <label>Company name</label>
-          <input
-            {...register(`experiences.${index}.company.name`)}
-            placeholder="e.g. Microsoft"
-          />
-          <small className="input-hint">
-            Enter the name of the organization where you worked.
-          </small>
-        </div>
-        <div className="form-group">
-          <label>Company city</label>
-          <input
-            {...register(`experiences.${index}.company.city`)}
-            placeholder="e.g. Casablanca"
-          />
-          <small className="input-hint">
-            Location helps contextualize your experience.
-          </small>
-        </div>
-      </div>
-
-      <div className="form-group">
-        <label>Description</label>
-        <textarea
-          {...register(`experiences.${index}.company.description`)}
-          placeholder="Briefly describe the company or your role there."
+    <Paper variant="outlined" sx={{ p: 3, borderRadius: 2, mb: 2 }}>
+      <Typography variant="h6" gutterBottom>
+        Experience {index + 1}
+      </Typography>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
+        <TextField
+          fullWidth
+          label="Company Name"
+          placeholder="e.g. Microsoft"
+          helperText="Enter the name of the organization where you worked."
+          {...register(`experiences.${index}.company.name`)}
         />
-        <small className="input-hint">
-          Briefly describe the company or your role there to give more context.
-        </small>
-      </div>
+        <TextField
+          fullWidth
+          label="Company City"
+          placeholder="e.g. Casablanca"
+          helperText="Location helps contextualize your experience."
+          {...register(`experiences.${index}.company.city`)}
+        />
+      </Stack>
 
-      <div className="form-row">
-        <div className="form-group">
-          <label>Start date</label>
-          <input type="date" {...register(`experiences.${index}.startdate`)} />
-          <small className="input-hint">
-            Shows when your journey with this company began
-          </small>
-        </div>
-        <div className="form-group">
-          <label>End date</label>
-          <input type="date" {...register(`experiences.${index}.enddate`)} />
-          <small className="input-hint">
-            Helps define the duration and progression of your role.
-          </small>
-        </div>
-      </div>
+      <TextField
+        fullWidth
+        label="Description"
+        placeholder="Briefly describe the company or your role there."
+        helperText="Briefly describe the company or your role there to give more context."
+        multiline
+        rows={3}
+        sx={{ mb: 2 }}
+        {...register(`experiences.${index}.company.description`)}
+      />
 
-      <div className="form-group">
-        <label>Key Tasks</label>
-        <MuiTagInput control={control} placeholder={"Add tasks and press Enter..."}  name={`experiences.${index}.tasks`}></MuiTagInput>
+      <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
+        <TextField
+          fullWidth
+          label="Start Date"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          helperText="Shows when your journey with this company began."
+          {...register(`experiences.${index}.startdate`)}
+        />
+        <TextField
+          fullWidth
+          label="End Date"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          helperText="Helps define the duration and progression of your role."
+          {...register(`experiences.${index}.enddate`)}
+        />
+      </Stack>
 
-        <small className="input-hint">
+      <Box mb={2}>
+        <Typography variant="subtitle1" gutterBottom>
+          Key Tasks
+        </Typography>
+        <Controller
+          name={`experiences.${index}.tasks`}
+          control={control}
+          render={({ field }) => (
+            <MuiTagInput
+              {...field}
+              control={control}
+              placeholder="Add tasks and press Enter..."
+            />
+          )}
+        />
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          display="block"
+          mt={1}
+        >
           List your main responsibilities or achievements. Press Enter (or tab)
           to add each one.
-        </small>
-      </div>
+        </Typography>
+      </Box>
 
-      <div className="form-group">
-        <label>Tools Used</label>
-        <MuiTagInput control={control} placeholder={"Add tools and press Enter..."} name={`experiences.${index}.tools`}></MuiTagInput>
-        <small className="input-hint">
+      <Box>
+        <Typography variant="subtitle1" gutterBottom>
+          Tools Used
+        </Typography>
+        <Controller
+          name={`experiences.${index}.tools`}
+          control={control}
+          render={({ field }) => (
+            <MuiTagInput
+              {...field}
+              control={control}
+              placeholder="Add tools and press Enter..."
+            />
+          )}
+        />
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          display="block"
+          mt={1}
+        >
           Mention platforms, software, or techniques you used. Press Enter (or
           tab) to add each one.
-        </small>
-      </div>
-    </div>
+        </Typography>
+      </Box>
+    </Paper>
   );
 }

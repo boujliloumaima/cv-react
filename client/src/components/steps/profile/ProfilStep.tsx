@@ -2,9 +2,30 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { nationalities } from "../../../tempDB/nationalities"; // Adjust the path as needed
 import ProgressBar from "../../progress/CardWithProgress";
-import "../steps.css";
+import {
+  Box,
+  TextField,
+  Typography,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  MenuItem,
+  LinearProgress,
+  Stack,
+  Autocomplete,
+  Button,
+} from "@mui/material";
+import PersonIcon from "@mui/icons-material/Person";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
+import CakeIcon from "@mui/icons-material/Cake";
+import FlagIcon from "@mui/icons-material/Flag";
+import WorkIcon from "@mui/icons-material/Work";
+import WcIcon from "@mui/icons-material/Wc";
+
+// import "../steps.css";
 import { Gender, Resume } from "../../../models";
-import { Autocomplete, TextField } from "@mui/material";
 
 export default function ProfilStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
@@ -26,52 +47,69 @@ export default function ProfilStep() {
     }
   };
   return (
-    <div className="container-form">
+    <Card sx={{ maxWidth: 700, margin: "auto", mt: 4, p: 3, boxShadow: 3 }}>
       <ProgressBar percentage={0}></ProgressBar>
 
-      <div className="section-header">
-        <h2 className="section-title">Your Story Begins Here</h2>
-        <p className="section-subtitle">
-          Every great story starts with a name. Let’s capture yours with pride.
-        </p>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="fullname">Full Name</label>
-            <input id="fullname" {...register("name")} />
-            <small className="input-hint">
-              Enter your full legal name as you'd like it to appear on your CV.
-            </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="phone">Phone</label>
-            <input id="phone" {...register("phone")} />
-            <small className="input-hint">
-              Include your country code for international contact.
-            </small>
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+      <CardHeader
+        title="Your Story Begins Here"
+        subheader="Every great story starts with a name. Let's capture yours with pride."
+        sx={{ textAlign: "center", pb: 0 }}
+      />
+      <CardContent>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
+            <TextField
+              fullWidth
+              label="Full Name"
+              id="fullname"
+              InputProps={{
+                startAdornment: <PersonIcon color="action" sx={{ mr: 1 }} />,
+              }}
+              placeholder="Enter your full legal name"
+              helperText="Enter your full legal name as you'd like it to appear on your CV."
+              {...register("name")}
+            />
+            <TextField
+              fullWidth
+              label="Phone"
+              id="phone"
+              InputProps={{
+                startAdornment: <PhoneIcon color="action" sx={{ mr: 1 }} />,
+              }}
+              placeholder="Include your country code"
+              helperText="Include your country code for international contact."
+              {...register("phone")}
+            />
+          </Stack>
 
-            <input id="email" {...register("email")} type="email" />
-            <small className="input-hint">
-              Use a professional email address you check regularly.
-            </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="birthday">Birthday</label>
-            <input id="birthday" type="date" {...register("birthday")} />
-            <small className="input-hint">
-              Date of Birth Format: MM/DD/YYYY.
-            </small>
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="nationalite">Nationality</label>
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
+            <TextField
+              fullWidth
+              label="Email Address"
+              id="email"
+              type="email"
+              InputProps={{
+                startAdornment: <EmailIcon color="action" sx={{ mr: 1 }} />,
+              }}
+              placeholder="Use a professional email address"
+              helperText="Use a professional email address you check regularly."
+              {...register("email")}
+            />
+            <TextField
+              fullWidth
+              label="Birthday"
+              id="birthday"
+              type="date"
+              InputProps={{
+                startAdornment: <CakeIcon color="action" sx={{ mr: 1 }} />,
+              }}
+              InputLabelProps={{ shrink: true }}
+              helperText="Date of Birth Format: MM/DD/YYYY."
+              {...register("birthday")}
+            />
+          </Stack>
+
+          <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mb={2}>
             <Controller
               name="nationalite"
               control={control}
@@ -79,50 +117,76 @@ export default function ProfilStep() {
                 const selectedOption = value ? { value, label: value } : null;
                 return (
                   <Autocomplete
+                    fullWidth
                     id="nationalite"
-                    disablePortal
                     options={nationalities.map((n) => ({ value: n, label: n }))}
                     value={selectedOption}
                     onChange={(event, newValue) => {
                       onChange(newValue ? newValue.value : "");
                     }}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Nationality"
+                        InputProps={{
+                          ...params.InputProps,
+                          startAdornment: (
+                            <>
+                              <FlagIcon color="action" sx={{ mr: 1 }} />
+                              {params.InputProps.startAdornment}
+                            </>
+                          ),
+                        }}
+                        placeholder="Select your nationality"
+                        helperText="This helps recruiters understand your eligibility for certain roles."
+                      />
+                    )}
                   />
                 );
               }}
             />
+            <TextField
+              fullWidth
+              label="Job Title"
+              id="jobTitle"
+              InputProps={{
+                startAdornment: <WorkIcon color="action" sx={{ mr: 1 }} />,
+              }}
+              placeholder="State your current or desired professional title"
+              helperText="State your current or desired professional title."
+              {...register("jobTitle")}
+            />
+          </Stack>
 
-            <small className="input-hint">
-              This helps recruiters understand your eligibility for certain
-              roles.
-            </small>
-          </div>
-          <div className="form-group">
-            <label htmlFor="jobTitle">Job title</label>
-            <input id="jobTitle" {...register("jobTitle")} />
-            <small className="input-hint">
-              State your current or desired professional title.
-            </small>
-          </div>
-        </div>
+          <TextField
+            fullWidth
+            select
+            label="Gender"
+            id="gender"
+            InputProps={{
+              startAdornment: <WcIcon color="action" sx={{ mr: 1 }} />,
+            }}
+            helperText="Optional: Helps personalize your CV presentation."
+            {...register("gender")}
+            sx={{ mb: 2 }}
+          >
+            <MenuItem value={Gender.male}>Male</MenuItem>
+            <MenuItem value={Gender.female}>Female</MenuItem>
+          </TextField>
 
-        <div className="form-group">
-          <label htmlFor="gender">Gender</label>
-          <select id="gender" {...register("gender")}>
-            <option value={Gender.male}>Male</option>
-            <option value={Gender.female}>Female</option>
-          </select>
-
-          <small className="input-hint">
-            Optional: Helps personalize your CV presentation.
-          </small>
-        </div>
-        <div className="container-btn">
-          <button type="submit" className="btn next-btn">
-            Next
-          </button>
-        </div>
-      </form>
-    </div>
+          <Divider sx={{ my: 3 }} />
+          <Stack direction="row" justifyContent="flex-end">
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ px: 4 }}
+            >
+              Next
+            </Button>
+          </Stack>
+        </Box>
+      </CardContent>
+    </Card>
   );
 }

@@ -2,6 +2,21 @@ import { useForm, useFieldArray, SubmitHandler } from "react-hook-form";
 import { Resume, LangLevel } from "../../../models";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  Box,
+  TextField,
+  MenuItem,
+  Button,
+  Card,
+  CardContent,
+  CardActions,
+  Divider,
+  Typography,
+  IconButton,
+  Stack,
+} from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 
 export default function LanguagesStep() {
   const { register, handleSubmit, control } = useForm<Resume>();
@@ -48,64 +63,82 @@ export default function LanguagesStep() {
   };
   const LangLabels = ["Mother", "Beginner", "Intermediate", "Fluent", "Expert"];
   return (
-    <div className="container-form">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {fields.map((field, index) =>
-          index === fields.length - 1 ? (
-            <div key={field.id}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Langue</label>
-                  <input
+    <Card sx={{ maxWidth: 600, margin: "auto", mt: 4, p: 3, boxShadow: 3 }}>
+      <CardContent>
+        <Typography variant="h5" align="center" gutterBottom>
+          Language Skills
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
+          {fields.map((field, index) => (
+            <Box key={field.id} mb={2}>
+              {index === fields.length - 1 ? (
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <TextField
+                    label="Language"
+                    placeholder="e.g., English, French"
+                    fullWidth
                     {...register(`languages.${index}.name`)}
-                    placeholder="Language"
                   />
-                </div>
-                <div className="form-group">
-                  <label>Langue level</label>
-                  <select {...register(`languages.${index}.level`)}>
-                    <option value={LangLevel.mother}>Mother</option>
-                    <option value={LangLevel.beginner}>Beginner</option>
-                    <option value={LangLevel.intermediate}>Intermediate</option>
-                    <option value={LangLevel.fluent}>Fluent</option>
-                    <option value={LangLevel.expert}>Expert</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <div className="skill-display-card">
-                <div>
-                  {field.name} : {LangLabels[field.level]}
-                </div>
-                <div>
-                  <button
-                    onClick={() => remove(index)}
-                    className="remove-skill-btn"
-                    aria-label="Remove skill"
+                  <TextField
+                    select
+                    label="Proficiency"
+                    defaultValue={LangLevel.beginner}
+                    fullWidth
+                    {...register(`languages.${index}.level`)}
                   >
-                    X
-                  </button>
-                </div>
-              </div>
-              <hr />
-            </div>
-          )
-        )}
-        <div className="container-btn">
-          <button type="submit" className="btn next-btn">
-            Next
-          </button>
-          <button
-            type="button"
-            onClick={() => append({ name: "", level: LangLevel.beginner })}
-            className="btn add-btn"
-          >
-            Add Language {fields.length + 1}
-          </button>
-        </div>
-      </form>
-    </div>
+                    {Object.entries(LangLevel)
+                      .filter(([key, value]) => typeof value === "number")
+                      .map(([key, value]) => (
+                        <MenuItem key={value} value={value}>
+                          {LangLabels[value]}
+                        </MenuItem>
+                      ))}
+                  </TextField>
+                </Stack>
+              ) : (
+                <Card variant="outlined" sx={{ p: 2, mb: 1 }}>
+                  <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                  >
+                    <Typography>
+                      {field.name} : {LangLabels[field.level]}
+                    </Typography>
+                    <IconButton
+                      onClick={() => remove(index)}
+                      color="error"
+                      aria-label="Remove language"
+                    >
+                      <RemoveCircleOutlineIcon />
+                    </IconButton>
+                  </Stack>
+                </Card>
+              )}
+              {index < fields.length - 1 && <Divider sx={{ my: 1 }} />}
+            </Box>
+          ))}
+          <CardActions sx={{ justifyContent: "space-between", mt: 2 }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              size="large"
+            >
+              Next
+            </Button>
+            <Button
+              type="button"
+              variant="outlined"
+              color="primary"
+              startIcon={<AddCircleOutlineIcon />}
+              onClick={() => append({ name: "", level: LangLevel.beginner })}
+            >
+              Add Language
+            </Button>
+          </CardActions>
+        </Box>
+      </CardContent>
+    </Card>
   );
 }

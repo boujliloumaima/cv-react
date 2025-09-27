@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import ResumeComponent from "../../components/ResumeComponent";
+import "../../components/steps/steps.css";
 
 export default function ResumeDetail() {
   const { id } = useParams();
