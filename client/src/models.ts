@@ -1,9 +1,68 @@
+export interface NewResume {
+  user: UserInfo;
+  template_id: string;
+  sections: ResumeSection[];
+}
+
+export interface ResumeSection {
+  name: string;
+  type:
+    | "basics"
+    | "info"
+    | "education"
+    | "profiles"
+    | "experience"
+    | "awards"
+    | "interests"
+    | "skills"
+    | "languages"
+    | "projects"
+    | "volunteerings"
+    | "references"
+    | "certifications"
+    | "custom";
+  defaultFields: SectionField[];
+  customFields?: SectionField[];
+  settings?: SectionSettings;
+}
+
+export interface SectionSettings {
+  hideSectionTitle: boolean;
+  hideSection: boolean;
+  separateLinks: boolean;
+}
+export interface SectionField {
+  labelCode: string;
+  placeholderCode: string;
+  type: "string" | "number" | "date" | "url" | "tags" | "html"; // url must have a label to trunk the url
+  valueValidator?: any;
+  value: any;
+  hexColor: string;
+}
+
+export interface SectionFieldSettings {
+  hide: boolean;
+}
+
+export interface UserInfo {
+  title: string;
+  fullName: string;
+
+  avatarUrl?: string;
+  jobTitle: string;
+  gender: Gender;
+  email: string;
+  phone: string;
+  website: string;
+  nationalite: string;
+}
+
 export interface Resume {
   _id: string;
   name: string;
   phone: string;
   nationalite: string;
-  birthday: Date;
+  birthday: string | Date;
   email: string;
   jobTitle: string;
   gender: Gender;
