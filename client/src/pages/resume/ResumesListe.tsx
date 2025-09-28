@@ -16,27 +16,13 @@ import {
   Group,
   ActionIcon,
 } from "@mantine/core";
-import { IconEye, IconHome } from "@tabler/icons-react";
+import { IconEye, IconHome, IconMinus } from "@tabler/icons-react";
 import { Resume } from "../../models";
+import { getAllResumes, removeResume } from "../../services/resumeService";
 
 //import { getAllResumes } from "../../services/resumeService";
 export default function ResumesList() {
   const navigate = useNavigate();
-  //const resumesList = getAllResumes();
-
-  const getAllResumes = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/v1/resumes`, {
-        credentials: "include",
-      });
-
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      const data = await res.json();
-      return data;
-    } catch (error: any) {
-      console.error("Error fetching resumes:", error);
-    }
-  };
 
   const {
     data: resumesList = [],
@@ -93,6 +79,15 @@ export default function ResumesList() {
                       aria-label="View resume"
                     >
                       <IconEye size={20} />
+                    </ActionIcon>
+                    <ActionIcon
+                      color="red"
+                      variant="light"
+                      onClick={() => removeResume(resume._id)}
+                      aria-label="Delete resume"
+                      ml={10}
+                    >
+                      <IconMinus size={20} />
                     </ActionIcon>
                   </TableTd>
                 </TableTr>

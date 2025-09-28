@@ -25,6 +25,22 @@ export const getResumes = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+export const deleteResume = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Resume.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      logger.warn(`Resume not found: id=${id}`);
+      return res.status(404).json({ message: "Resume not found" });
+    }
+    logger.info(`Deleted resume: id=${id}`);
+    res.status(204).send();
+  } catch (err) {
+    logger.error(`Failed to delete resume: ${err.message}`);
+    res.status(500).json({ error: err.message });
+  }
+};
 export const getResumeById = async (req, res) => {
   try {
     const { id } = req.params;
