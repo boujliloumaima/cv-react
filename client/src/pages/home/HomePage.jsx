@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import "./home.css"
+import { getAllResumes } from "../../services/resumeService";
+import { useQuery } from "@tanstack/react-query";
 const HomePage = () => {
-  const storedResume = localStorage.getItem("resumes") ?? "[]";
-  const totalResumes = (JSON.parse(storedResume)).length;
+
+  const {
+    data: totalResumes = [],
+  } = useQuery({
+    queryFn: getAllResumes,
+  });
 
   const navigate = useNavigate();
 
@@ -26,8 +32,8 @@ const HomePage = () => {
             Create My CV
           </button>
 
-          <button onClick={() => navigate("/resumes/all")}  className="secondary-button">
-            Show my resumes ({totalResumes})
+          <button onClick={() => navigate("/resumes/all")} className="secondary-button">
+            Show my resumes ({totalResumes.length})
           </button>
 
           <button onClick={handleImportLinkedIn} className="secondary-button">
