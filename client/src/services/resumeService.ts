@@ -1,57 +1,65 @@
 import { Resume } from "../models";
-export const RESUME_API = import.meta.env.VITE_API_URL + "/v1/resumes";
+import { handleApiRequest } from "../utils/apiErrorHandler";
 
-export async function getResume(index: number) {
-  try {
-    const res = await fetch(`${RESUME_API}/${index}`, {
-      credentials: "include",
-    });
+export const RESUME_API = `${import.meta.env.VITE_API_URL}/resumes`;
 
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const data = await res.json();
-    return data;
-  } catch (error: any) {
-    console.error("Error fetching resumes:", error);
-  }
+const RESUME_ERROR_MESSAGES = {
+  400: 'Invalid resume data',
+  401: 'Please log in to access your resume',
+  404: 'Resume not found',
+  409: 'A conflict occurred while saving your resume',
+  default: 'Failed to process your request. Please try again.',
+  network: 'Unable to connect to the server. Please check your internet connection.'
+};
+
+export async function getResume(index: string) {
+  return handleApiRequest(`${RESUME_API}/${index}`, {
+    method: 'GET',
+    customErrorMessages: RESUME_ERROR_MESSAGES
+  });
+}
+
+export async function updateResume(resume: Resume) {
+  return handleApiRequest(`${RESUME_API}/${resume._id}`, {
+    method: 'PUT',
+    body: resume,
+    customErrorMessages: {
+      ...RESUME_ERROR_MESSAGES,
+      400: 'Failed to update resume. Please check your data.',
+      403: 'You do not have permission to update this resume'
+    }
+  });
 }
 
 export async function getAllResumes() {
-  try {
-    const res = await fetch(`${RESUME_API}`, {
-      credentials: "include",
-    });
-
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    const data = await res.json();
-    return data;
-  } catch (error: any) {
-    console.error("Error fetching resumes:", error);
-  }
+  return handleApiRequest(RESUME_API, {
+    method: 'GET',
+    customErrorMessages: {
+      ...RESUME_ERROR_MESSAGES,
+      403: 'You do not have permission to view these resumes'
+    }
+  });
 }
 
 export async function removeResume(id: string) {
-  try {
-    const res = await fetch(`${RESUME_API}/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
-
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
-    // Optionally, you can refetch the resumes list after deletion
-  } catch (error: any) {
-    console.error("Error deleting resume:", error);
-  }
+  return handleApiRequest(`${RESUME_API}/${id}`, {
+    method: 'DELETE',
+    customErrorMessages: {
+      ...RESUME_ERROR_MESSAGES,
+      403: 'You do not have permission to delete this resume',
+      404: 'The resume you are trying to delete was not found'
+    }
+  });
 }
 
 export function getCurrentResume() {
   const stored = localStorage.getItem("currentResume");
   if (stored) {
     try {
-      const parsed = JSON.parse(stored);
-      return parsed;
+      return { data: JSON.parse(stored) };
     } catch (e) {
-      return {};
+      return { data: {} };
     }
   }
+  return { data: null };
 }

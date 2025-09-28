@@ -2,9 +2,34 @@ import Resume from "../models/Resume.js";
 import { logger } from "../config/logger.js";
 
 // CREATE RESUME/
+export const updateResume = async (req, res) => {
+  try {
+    const resume = await Resume.findOneAndUpdate(
+      { userId: req.user.id },
+      req.body,
+      { new: true }
+    );
+    if (!resume) {
+      logger.warn(`Resume not found for userId: ${req.user.id}`);
+      return res.status(404).json({ message: "Resume not found" });
+    }
+    logger.info(`Updated resume for userId: ${req.user.id}`);
+    res.status(200).json(resume);
+  } catch (err) {
+    logger.error(`Failed to update resume: ${err.message}`);
+    res.status(400).json({ error: err.message });
+  }
+};
 export const createResume = async (req, res) => {
   try {
-    const resume = new Resume({ ...req.body, userId: req.user.id });
+    const resume = await Resume.findOneAndUpdate(
+      { userId: req.user.id },
+      req.body,
+      { new: true }
+    );
+    if (!resume) {
+      resume = new Resume({ ...req.body, userId: req.user.id });
+    }
     await resume.save();
     logger.info(`Resume created for userId: ${resume.userId}`);
     res.status(201).json(resume);
