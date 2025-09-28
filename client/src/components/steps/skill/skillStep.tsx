@@ -79,7 +79,7 @@ export default function SkillStep() {
                 <Group grow align="flex-end">
                   <TextInput
                     label="Skill Name"
-                    placeholder="Choose a skill that defines your value"
+                    placeholder="(e.g., JavaScript, Leadership)"
                     description="Choose a skill that defines your value."
                     {...register(`skills.${index}.name`)}
                   />
@@ -91,7 +91,6 @@ export default function SkillStep() {
                     render={({ field }) => (
                       <Select
                         label="Skill Level"
-                        placeholder="Rate your mastery from 1 (novice) to 5 (expert)"
                         description="Rate your mastery from 1 (novice) to 5 (expert). Be honest, be proud."
                         data={[
                           { value: "1", label: "1" },
@@ -114,7 +113,6 @@ export default function SkillStep() {
                     render={({ field }) => (
                       <Select
                         label="Skill Type"
-                        placeholder="Is this a technical craft or a soft skill?"
                         description="Is this a technical craft or a soft skill like leadership or empathy?"
                         data={[
                           {
