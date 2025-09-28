@@ -1,125 +1,230 @@
 import { useNavigate } from "react-router-dom";
-import "./home.css"
-import { getAllResumes } from "../../services/resumeService";
 import { useQuery } from "@tanstack/react-query";
-const HomePage = () => {
+import { getAllResumes } from "../../services/resumeService";
+import {
+  Box,
+  Button,
+  Card,
+  Group,
+  Stack,
+  Title,
+  Text,
+  Image,
+  SimpleGrid,
+  Divider,
+  Paper,
+  Anchor,
+  Container,
+  ThemeIcon,
+} from "@mantine/core";
+import { IconFileText, IconSparkles, IconCheck, IconUser, IconDeviceMobile, IconDownload, IconBrandLinkedin, IconBrandTwitter } from "@tabler/icons-react";
+
+export default function HomePage() {
+  const navigate = useNavigate();
 
   const {
     data: totalResumes = [],
   } = useQuery({
+    queryKey: ["resumes"],
     queryFn: getAllResumes,
   });
-
-  const navigate = useNavigate();
 
   const handleCreateCV = () => {
     navigate("/resume/add/profile");
   };
 
   const handleImportLinkedIn = () => {
-    // Open LinkedIn import modal or redirect to import flow
     alert("LinkedIn import coming soon!");
   };
 
   return (
-    <div className="home-page">
+    <Container size="lg" py="xl">
       {/* Hero Section */}
-      <section className="hero">
-        <h1>Build a Standout CV in Minutes</h1>
-        <p>Drag-and-drop s, and ATS-optimized templates. No design skills needed.</p>
-        <div className="cta-buttons">
-          <button onClick={handleCreateCV} className="primary-button">
-            Create My CV
-          </button>
-
-          <button onClick={() => navigate("/resumes/all")} className="secondary-button">
-            Show my resumes ({totalResumes.length})
-          </button>
-
-          <button onClick={handleImportLinkedIn} className="secondary-button">
-            Import from LinkedIn
-          </button>
-        </div>
-        <div className="hero-image">
-          <img src="/cv-editor-preview.png" alt="CV Editor Preview" />
-        </div>
-      </section>
+      <Card shadow="md" radius="md" p="xl" mb="xl" withBorder>
+        <Stack align="center" gap="md">
+          <Title order={1} ta="center">
+            Build a Standout CV in Minutes
+          </Title>
+          <Text ta="center" color="dimmed" size="lg">
+            Drag-and-drop sections, and ATS-optimized templates. No design skills needed.
+          </Text>
+          <Group gap="md" mt="md">
+            <Button size="md" onClick={handleCreateCV}>
+              Create My CV
+            </Button>
+            <Button
+              size="md"
+              variant="outline"
+              onClick={() => navigate("/resumes/all")}
+            >
+              Show my resumes ({totalResumes.length})
+            </Button>
+            <Button
+              size="md"
+              variant="light"
+              leftSection={<IconBrandLinkedin size={18} />}
+              onClick={handleImportLinkedIn}
+            >
+              Import from LinkedIn
+            </Button>
+          </Group>
+          <Image
+            src="/cv-editor-preview.png"
+            alt="CV Editor Preview"
+            maw={400}
+            radius="md"
+            mt="md"
+          />
+        </Stack>
+      </Card>
 
       {/* Features Section */}
-      <section className="features">
-        <div className="feature">
-          <div className="feature-icon">📄</div>
-          <h3>Easy Drag-and-Drop</h3>
-          <p>Customize your CV layout with a simple drag-and-drop editor.</p>
-        </div>
-        <div className="feature">
-          <div className="feature-icon">✨</div>
-          <h3>AI-Powered Suggestions</h3>
-          <p>Get real-time tips to improve your CV and stand out.</p>
-        </div>
-        <div className="feature">
-          <div className="feature-icon">✅</div>
-          <h3>ATS-Optimized Templates</h3>
-          <p>Templates designed to pass Applicant Tracking Systems.</p>
-        </div>
-      </section>
+      <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg" mb="xl">
+        <Paper withBorder p="md" radius="md">
+          <Group gap={8}>
+            <ThemeIcon variant="light" color="blue" size="lg">
+              <IconFileText size={24} />
+            </ThemeIcon>
+            <Text fw={700}>Easy Drag-and-Drop</Text>
+          </Group>
+          <Text color="dimmed" mt={4}>
+            Customize your CV layout with a simple drag-and-drop editor.
+          </Text>
+        </Paper>
+        <Paper withBorder p="md" radius="md">
+          <Group gap={8}>
+            <ThemeIcon variant="light" color="grape" size="lg">
+              <IconSparkles size={24} />
+            </ThemeIcon>
+            <Text fw={700}>AI-Powered Suggestions</Text>
+          </Group>
+          <Text color="dimmed" mt={4}>
+            Get real-time tips to improve your CV and stand out.
+          </Text>
+        </Paper>
+        <Paper withBorder p="md" radius="md">
+          <Group gap={8}>
+            <ThemeIcon variant="light" color="teal" size="lg">
+              <IconCheck size={24} />
+            </ThemeIcon>
+            <Text fw={700}>ATS-Optimized Templates</Text>
+          </Group>
+          <Text color="dimmed" mt={4}>
+            Templates designed to pass Applicant Tracking Systems.
+          </Text>
+        </Paper>
+      </SimpleGrid>
 
       {/* Templates Gallery */}
-      <section className="templates">
-        <h2>Choose a Template to Get Started</h2>
-        <div className="template-grid">
-          <div className="template-card" onClick={() => navigate("/resume/add/profile?template=modern")}>
-            <img src="/modern-template.png" alt="Modern Template" />
-            <button>Use This Template</button>
-          </div>
-          <div className="template-card" onClick={() => navigate("/resume/add/profile?template=classic")}>
-            <img src="/classic-template.png" alt="Classic Template" />
-            <button>Use This Template</button>
-          </div>
-          <div className="template-card" onClick={() => navigate("/resume/add/profile?template=creative")}>
-            <img src="/creative-template.png" alt="Creative Template" />
-            <button>Use This Template</button>
-          </div>
-        </div>
-      </section>
+      <Card withBorder shadow="xs" radius="md" p="lg" mb="xl">
+        <Title order={3} mb="md">
+          Choose a Template to Get Started
+        </Title>
+        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
+          <Paper
+            withBorder
+            p="sm"
+            radius="md"
+            onClick={() => navigate("/resume/add/profile?template=modern")}
+            style={{ cursor: "pointer" }}
+          >
+            <Image src="/modern-template.png" alt="Modern Template" radius="md" />
+            <Button mt="sm" fullWidth>
+              Use This Template
+            </Button>
+          </Paper>
+          <Paper
+            withBorder
+            p="sm"
+            radius="md"
+            onClick={() => navigate("/resume/add/profile?template=classic")}
+            style={{ cursor: "pointer" }}
+          >
+            <Image src="/classic-template.png" alt="Classic Template" radius="md" />
+            <Button mt="sm" fullWidth>
+              Use This Template
+            </Button>
+          </Paper>
+          <Paper
+            withBorder
+            p="sm"
+            radius="md"
+            onClick={() => navigate("/resume/add/profile?template=creative")}
+            style={{ cursor: "pointer" }}
+          >
+            <Image src="/creative-template.png" alt="Creative Template" radius="md" />
+            <Button mt="sm" fullWidth>
+              Use This Template
+            </Button>
+          </Paper>
+        </SimpleGrid>
+      </Card>
 
       {/* How It Works */}
-      <section className="how-it-works">
-        <h2>How It Works</h2>
-        <div className="steps">
-          <div className="step">
-            <div className="step-icon">👤</div>
-            <h3>Add Your Info</h3>
-            <p>Fill in your details or import from LinkedIn.</p>
-          </div>
-          <div className="step">
-            <div className="step-icon">📱</div>
-            <h3>Customize Your CV</h3>
-            <p>Drag sections, edit content, and pick a theme.</p>
-          </div>
-          <div className="step">
-            <div className="step-icon">📥</div>
-            <h3>Export & Apply</h3>
-            <p>Download as PDF or apply directly to jobs.</p>
-          </div>
-        </div>
-      </section>
+      <Card withBorder shadow="xs" radius="md" p="lg" mb="xl">
+        <Title order={3} mb="md">
+          How It Works
+        </Title>
+        <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
+          <Stack align="center" gap={4}>
+            <ThemeIcon variant="light" color="blue" size="xl">
+              <IconUser size={28} />
+            </ThemeIcon>
+            <Text fw={700}>Add Your Info</Text>
+            <Text ta="center" color="dimmed">
+              Fill in your details or import from LinkedIn.
+            </Text>
+          </Stack>
+          <Stack align="center" gap={4}>
+            <ThemeIcon variant="light" color="grape" size="xl">
+              <IconDeviceMobile size={28} />
+            </ThemeIcon>
+            <Text fw={700}>Customize Your CV</Text>
+            <Text ta="center" color="dimmed">
+              Drag sections, edit content, and pick a theme.
+            </Text>
+          </Stack>
+          <Stack align="center" gap={4}>
+            <ThemeIcon variant="light" color="teal" size="xl">
+              <IconDownload size={28} />
+            </ThemeIcon>
+            <Text fw={700}>Export & Apply</Text>
+            <Text ta="center" color="dimmed">
+              Download as PDF or apply directly to jobs.
+            </Text>
+          </Stack>
+        </SimpleGrid>
+      </Card>
 
       {/* Footer */}
-      <footer>
-        <div className="footer-links">
-          <a href="/about">About</a>
-          <a href="/pricing">Pricing</a>
-          <a href="/faq">FAQ</a>
-          <a href="/contact">Contact</a>
-        </div>
-        <div className="social-icons">
-          <a href="https://linkedin.com">LinkedIn</a>
-          <a href="https://twitter.com">Twitter</a>
-        </div>
-      </footer>
-    </div>
+      <Divider my="xl" />
+      <Group justify="space-between" align="center" mt="md" mb="xs">
+        <Group gap={24}>
+          <Anchor href="/about" size="sm">
+            About
+          </Anchor>
+          <Anchor href="/pricing" size="sm">
+            Pricing
+          </Anchor>
+          <Anchor href="/faq" size="sm">
+            FAQ
+          </Anchor>
+          <Anchor href="/contact" size="sm">
+            Contact
+          </Anchor>
+        </Group>
+        <Group gap={16}>
+          <Anchor href="https://linkedin.com" target="_blank">
+            <IconBrandLinkedin size={20} />
+          </Anchor>
+          <Anchor href="https://twitter.com" target="_blank">
+            <IconBrandTwitter size={20} />
+          </Anchor>
+        </Group>
+      </Group>
+      <Text ta="center" size="xs" color="dimmed" mt={8}>
+        &copy; {new Date().getFullYear()} CV Builder. All rights reserved.
+      </Text>
+    </Container>
   );
 };
-
-export default HomePage;
