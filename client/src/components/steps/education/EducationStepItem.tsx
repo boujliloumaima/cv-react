@@ -9,7 +9,6 @@ import {
   Title,
   Group,
 } from "@mantine/core";
-import { Controller } from "react-hook-form";
 import TagInput from "../../tag/TagInput";
 
 interface Props {
@@ -43,7 +42,7 @@ export default function EducationStepItem({ control, register, index }: Props) {
 
         <TextInput
           label="Diploma"
-          placeholder="e.g. Master in Luxury Marketing"
+          placeholder="e.g. Master Marketing"
           description="Your diploma is often the first thing recruiters look for—make it clear and proud."
           {...register(`educations.${index}.diploma`)}
         />

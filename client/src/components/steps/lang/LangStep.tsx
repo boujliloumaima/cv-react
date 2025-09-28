@@ -44,7 +44,7 @@ export default function LanguagesStep() {
       const updatedCurrentResume = { ...currentResume, ...data };
       const apiUrl = import.meta.env.VITE_API_URL;
 
-      const response = await fetch(`${apiUrl}/v1/resumes`, {
+      const response = await fetch(`${apiUrl}/resumes`, {
         method: "POST",
         credentials: "include",
         headers: {

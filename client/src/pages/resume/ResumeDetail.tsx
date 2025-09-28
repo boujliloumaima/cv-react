@@ -8,7 +8,7 @@ export default function ResumeDetail() {
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
   const fetchResumeById = async () => {
-    const res = await fetch(`${apiUrl}/v1/resumes/${id}`, {
+    const res = await fetch(`${apiUrl}/resumes/${id}`, {
       credentials: "include",
     });
     if (!res.ok) throw new Error("Failed to fetch resume");
