@@ -56,10 +56,10 @@ export function getCurrentResume() {
   const stored = localStorage.getItem("currentResume");
   if (stored) {
     try {
-      return { data: JSON.parse(stored) };
+      return JSON.parse(stored);
     } catch (e) {
-      return { data: {} };
+      return {};
     }
   }
-  return { data: null };
+  return {};
 }
