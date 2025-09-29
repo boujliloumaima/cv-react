@@ -26,16 +26,14 @@ import { Gender, Resume } from "../../../models";
 
 
 interface ProfileFormProps {
-  onSubmit: SubmitHandler<Resume>;
+  onSubmit: (data: Resume) => void;
   defaultValues?: Partial<Resume>;
-  onCancel?: () => void;
   submitLabel?: string;
 }
 
 export function ProfileForm({
   onSubmit,
   defaultValues,
-  onCancel,
   submitLabel = "Save"
 }: ProfileFormProps) {
   const { register, handleSubmit, control, reset } = useForm<Resume>();
@@ -165,11 +163,6 @@ export function ProfileForm({
       </Stack>
       <Divider my="lg" />
       <Group justify="flex-end">
-        {onCancel && (
-          <Button variant="outline" onClick={onCancel}>
-            Cancel
-          </Button>
-        )}
         <Button type="submit" size="md">
           {submitLabel}
         </Button>
