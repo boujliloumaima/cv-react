@@ -95,8 +95,8 @@ export interface Education {
   institut: Institut;
   diploma: string;
   modules?: string[];
-  startdate: Date;
-  enddate: Date;
+  startdate?: Date;
+  enddate?: Date;
 }
 
 export interface Institut {
